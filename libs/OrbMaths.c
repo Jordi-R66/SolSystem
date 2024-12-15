@@ -75,7 +75,13 @@ double TrueAnomaly(double Eccentricity, double EccentricAnomaly) {
 
 	return nu_;
 }
+double MeanLongitude(double MeanAno, double LNA, double ArgPeri) {
+	// MeanLNG = MeanAno + PeriLNG = MeanAno + LNA + ArgPeri
 
+	// As described here https://fr.wikipedia.org/wiki/Longitude_moyenne
+
+	return MeanAno + LNA + ArgPeri;
+}
 
 
 double OrbSpeed(uint64_t altitude, uint64_t SemiMajorAxis) {

@@ -32,6 +32,7 @@ double KeplerPrime(double E, double e);
 
 double AngularSpeed(double SemiMajorAxis);
 double TrueAnomaly(double Eccentricity, double EccentricAnomaly);
+double MeanLongitude(double MeanAno, double LNA, double ArgPeri);
 
 double OrbSpeed(uint64_t altitude, uint64_t SemiMajorAxis);
 double Lorentz(double speed);
