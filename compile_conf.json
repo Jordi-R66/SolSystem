@@ -1,0 +1,8 @@
+{
+	"Compiler": "gcc",
+	"Parameters": ["-Wall", "-Oz", "-std=c17", "-m64", "-march=x86-64", "-flto"],
+	"OutputPath": "output/",
+	"OutputName": "SolSystem",
+	"Sources": ["libs/Files.c", "libs/OrbMaths.c", "libs/FileParser.c", "libs/CONVERSIONS.c", "libs/Algos.c", "libs/TermFuncs.c", "main.c"],
+	"UseMath": true
+}
