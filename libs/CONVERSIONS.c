@@ -1,5 +1,4 @@
 #include "CONVERSIONS.h"
-#include <math.h>
 
 uint32_t ipow(uint32_t a, uint32_t b) {
 	uint32_t result = 1;

@@ -1,10 +1,6 @@
 #pragma once
 
-#include "Common.h"
 #include "CONVERSIONS.h"
-
-#ifndef __FileParser__
-#define __FileParser__
 
 #define NAME_LENGTH 25
 
@@ -67,7 +63,7 @@ typedef struct Body {
 
 } Body;
 
-Body parse_line(string* line);
+Body parse_line(string* line, SysConf* conf);
 
 // ------------------------------------------------------------------
 
@@ -109,5 +105,3 @@ TLE parse_block(string lines[][70]);
 
 TLE parse_lines(string NAME_LINE[25], string FIRST_LINE[70], string SECOND_LINE[70]);
 */
-
-#endif

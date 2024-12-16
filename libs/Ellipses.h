@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Common.h"
 
 float b(float a, float e);
