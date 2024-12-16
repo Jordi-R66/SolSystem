@@ -10,6 +10,13 @@
 
 #define BODY_ID_LENGTH 7
 
+#define BODY_MASS_LENGTH 16
+
+#define SMA_LENGTH 31
+#define ECC_LENGTH 16
+#define INCLINATION_LENGTH 11
+#define LNG_LENGTH 11
+
 /*
 #define NORAD_ID_LENGTH 6
 #define YR_LENGTH 3
@@ -44,7 +51,7 @@ typedef struct Body {
 
 	string BodyName[NAME_LENGTH];
 
-	bool hasParent;
+	uint8_t hasParent : 1;
 
 	float BodyMass;
 

@@ -2,6 +2,55 @@
 
 #define EOS '\0'
 
+Body parse_line(string* line, SysConf* conf) {
+	char sep = ',';
+
+	char* endptr;
+
+	size_t line_length = strlen(line);
+
+	string BODY_ID[BODY_ID_LENGTH];
+	string OBJ_NAME[NAME_LENGTH];
+	string PARENT_ID[BODY_ID_LENGTH];
+
+	string BODY_MASS[BODY_MASS_LENGTH];
+	string ECCENTRICITY[ECC_LENGTH];
+	string INCLINATION[INCLINATION_LENGTH];
+	string AN[LNG_LENGTH];
+	string PERI_LONG[LNG_LENGTH];
+	string MEAN_LONG[LNG_LENGTH];
+
+	memset(BODY_ID, 0, BODY_ID_LENGTH);
+	memset(OBJ_NAME, 0, NAME_LENGTH);
+	memset(BODY_ID, 0, BODY_ID_LENGTH);
+	memset(BODY_MASS, 0, BODY_MASS_LENGTH);
+	memset(ECCENTRICITY, 0, ECC_LENGTH);
+	memset(INCLINATION, 0, INCLINATION_LENGTH);
+	memset(AN, 0, LNG_LENGTH);
+	memset(PERI_LONG, 0, LNG_LENGTH);
+	memset(MEAN_LONG, 0, LNG_LENGTH);
+
+	static Body output;
+
+	// --------------------------- 1-ST LINE PARSING ---------------------------
+
+	char c;
+
+	uint8_t count = 0;
+	size_t separators_indexes[9];
+
+	for (size_t i = 0; i<line_length; i++) {
+		c = line[i];
+
+		if (c == sep) {
+			separators_indexes[count] = i;
+		}
+	}
+
+	return output;
+}
+
+/*
 TLE parse_block(string lines[][70]) {
 	char *endptr;
 	string *NAME_LINE = lines[0];
@@ -202,3 +251,4 @@ TLE parse_lines(string NAME_LINE[25], string FIRST_LINE[70], string SECOND_LINE[
 
 	return parse_block(lines);
 }
+*/
