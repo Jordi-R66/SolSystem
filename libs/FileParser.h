@@ -27,6 +27,11 @@
 #define REVS_LENGTH 6
 
 #define COSPAR_LENGTH (YR_LENGTH + LAUNCH_NB_LENGTH + LAUNCH_PART_LENGTH - 2)
+typedef struct SysConf {
+	string SysName[NAME_LENGTH];
+	float MassScale;
+	float DistScale;
+} SysConf;
 
 typedef struct Body {
 	uint16_t BodyId;
