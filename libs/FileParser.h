@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Common.h"
 #include "CONVERSIONS.h"
 
@@ -25,6 +27,30 @@
 #define REVS_LENGTH 6
 
 #define COSPAR_LENGTH (YR_LENGTH + LAUNCH_NB_LENGTH + LAUNCH_PART_LENGTH - 2)
+
+typedef struct Body {
+	uint16_t BodyId;
+	uint16_t ParentId;
+
+	char BodyName[NAME_LENGTH];
+
+	bool hasParent;
+
+	double BodyMass;
+
+	double SemiMajorAxis;
+	float Eccentricity;
+	float Inclination;
+	float AscNodeLong;
+	float PeriLong;
+	float MeanLong;
+
+	float PeriArg;
+	float MeanAnomaly;
+
+	double MeanMotion;
+
+} Body;
 
 typedef struct TLE {
 	string name[NAME_LENGTH];
