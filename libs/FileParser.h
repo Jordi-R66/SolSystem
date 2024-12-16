@@ -8,6 +8,9 @@
 
 #define NAME_LENGTH 25
 
+#define BODY_ID_LENGTH 7
+
+/*
 #define NORAD_ID_LENGTH 6
 #define YR_LENGTH 3
 #define LAUNCH_NB_LENGTH 4
@@ -27,6 +30,8 @@
 #define REVS_LENGTH 6
 
 #define COSPAR_LENGTH (YR_LENGTH + LAUNCH_NB_LENGTH + LAUNCH_PART_LENGTH - 2)
+*/
+
 typedef struct SysConf {
 	string SysName[NAME_LENGTH];
 	float MassScale;
@@ -37,13 +42,13 @@ typedef struct Body {
 	uint16_t BodyId;
 	uint16_t ParentId;
 
-	char BodyName[NAME_LENGTH];
+	string BodyName[NAME_LENGTH];
 
 	bool hasParent;
 
-	double BodyMass;
+	float BodyMass;
 
-	double SemiMajorAxis;
+	float SemiMajorAxis;
 	float Eccentricity;
 	float Inclination;
 	float AscNodeLong;
@@ -53,10 +58,13 @@ typedef struct Body {
 	float PeriArg;
 	float MeanAnomaly;
 
-	double MeanMotion;
-
 } Body;
 
+Body parse_line(string* line);
+
+// ------------------------------------------------------------------
+
+/*
 typedef struct TLE {
 	string name[NAME_LENGTH];
 
@@ -93,5 +101,6 @@ typedef struct TLE {
 TLE parse_block(string lines[][70]);
 
 TLE parse_lines(string NAME_LINE[25], string FIRST_LINE[70], string SECOND_LINE[70]);
+*/
 
 #endif
