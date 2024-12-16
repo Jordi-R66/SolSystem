@@ -15,8 +15,7 @@ BodyId,BodyName,BodyParent,Mass,SMA,Ecc,Incl,LNA,PeLNG,MeanLNG
 ### System Conf File
 
 ```text
-PATH = ./Sol.system // Path to the system file relative to the path you're running the executable from.
-NAME = Sol
-MASS = 24 // exponent to put on 10, here 10^24 kilograms
+NAME = Sol // Limited to 24 chars
+MASS = 24 // exponent to raise 10 by, here it represents 10^24 kilograms
 SMA  = 149597870700 // meters
 ```
