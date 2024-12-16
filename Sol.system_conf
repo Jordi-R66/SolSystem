@@ -1,0 +1,4 @@
+PATH = ./Sol.system
+NAME = Sol
+MASS = 24
+SMA  = 149597870700
