@@ -10,7 +10,7 @@ Body parse_line(string* line, SysConf* conf) {
 	size_t line_length = strlen(line);
 
 	string BODY_ID[BODY_ID_LENGTH];
-	string OBJ_NAME[NAME_LENGTH];
+	string BODY_NAME[NAME_LENGTH];
 	string PARENT_ID[BODY_ID_LENGTH];
 
 	string BODY_MASS[BODY_MASS_LENGTH];
@@ -21,7 +21,7 @@ Body parse_line(string* line, SysConf* conf) {
 	string MEAN_LONG[LNG_LENGTH];
 
 	memset(BODY_ID, 0, BODY_ID_LENGTH);
-	memset(OBJ_NAME, 0, NAME_LENGTH);
+	memset(BODY_NAME, 0, NAME_LENGTH);
 	memset(BODY_ID, 0, BODY_ID_LENGTH);
 	memset(BODY_MASS, 0, BODY_MASS_LENGTH);
 	memset(ECCENTRICITY, 0, ECC_LENGTH);
@@ -39,12 +39,41 @@ Body parse_line(string* line, SysConf* conf) {
 	uint8_t count = 0;
 	size_t separators_indexes[9];
 
-	for (size_t i = 0; i<line_length; i++) {
+	for (size_t i = 0; i < line_length; i++) {
 		c = line[i];
 
 		if (c == sep) {
 			separators_indexes[count] = i;
 		}
+	}
+
+	uint8_t current_field = 0;
+	int32_t BodyId, BodyParent;
+	bool hasParent;
+
+	for (size_t i = 0; i < separators_indexes[current_field]; i++) {
+		BODY_ID[i] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		BODY_NAME[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		PARENT_ID[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		BODY_NAME[j] = line[i];
 	}
 
 	return output;
@@ -127,7 +156,7 @@ TLE parse_block(string lines[][70]) {
 		char c = FIRST_LINE[i+44];
 		DERIV_2[i] = c;
 	}
-	
+
 	for (uint8_t i=0; i < (BSTAR_LENGTH-1); i++) {
 		char c = FIRST_LINE[i+53];
 		BSTAR[i] = c;
@@ -238,7 +267,7 @@ TLE parse_block(string lines[][70]) {
 
 TLE parse_lines(string NAME_LINE[25], string FIRST_LINE[70], string SECOND_LINE[70]) {
 	string lines[3][70];
-	
+
 	for (int8_t l=0; l<3; l++) {
 		for (int8_t col=0; col<70; col++) {
 			lines[l][col] = 0;
