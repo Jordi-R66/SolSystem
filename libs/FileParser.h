@@ -47,7 +47,7 @@ typedef struct Body {
 
 	string BodyName[NAME_LENGTH];
 
-	uint8_t hasParent : 1;
+	bool hasParent;
 
 	float BodyMass;
 
