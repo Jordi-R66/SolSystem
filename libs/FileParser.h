@@ -63,7 +63,7 @@ typedef struct Body {
 
 } Body;
 
-Body parse_line(string* line, SysConf* conf);
+void parse_line(string* line, SysConf* conf, Body* body);
 
 // ------------------------------------------------------------------
 

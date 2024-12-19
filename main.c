@@ -1,8 +1,8 @@
 #include "libs/FileParser.h"
-#include "libs/OrbMaths.h"
+/*#include "libs/OrbMaths.h"
 #include "libs/Files.h"
 #include "libs/TermFuncs.h"
-#include "libs/Algos.h"
+#include "libs/Algos.h"*/
 
 #include "libs/Common.h"
 
@@ -12,7 +12,7 @@
 string* filename = "TLEs/stations.tle";
 uint32_t lookingFor = 25544;
 
-double EccentricAnomalyTolerance = 0.0001 * DEGS2RADS;
+//double EccentricAnomalyTolerance = 0.0001 * DEGS2RADS;
 
 time_t current_time;
 
@@ -33,7 +33,7 @@ time_t current_time;
  	}
 }*/
 
-void Print(TLE Object) {
+/*void Print(TLE Object) {
 	double OrbPeriod = OrbitalPeriod(Object.MeanMotion);
 	uint64_t SMA = SemiMajorAxis(OrbPeriod);
 	double n = AngularSpeed(SMA);
@@ -173,6 +173,21 @@ int32_t main(uint8_t argc, char *argv[]) {
 		printf("Memory usage to store %d blocks : %llu bytes\nTime : %lld\n", block_number, sizeof(TLE) * block_number, rawtime_end-rawtime_start);
 		//ExportToStructFile(AllObjs, block_number, "merged.tle_struct");
 	}
+
+	return 0;
+}*/
+
+int32_t main(uint8_t argc, char *argv[]) {
+	char line[] = "1,Mercury,0,0.33010,0.38709893,0.20563069,7.00487,48.33167,77.45645,252.25084";
+
+	SysConf conf;
+	Body Mercure;
+
+	strcpy(conf.SysName, "Sol");
+	conf.MassScale = 1e25f;
+	conf.DistScale = 149597870700.f;
+
+	parse_line(line, &conf, &Mercure);
 
 	return 0;
 }

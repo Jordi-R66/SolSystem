@@ -2,7 +2,7 @@
 
 #define EOS '\0'
 
-Body parse_line(string* line, SysConf* conf) {
+void parse_line(string* line, SysConf* conf, Body* body) {
 	char sep = ',';
 
 	char* endptr;
@@ -32,29 +32,32 @@ Body parse_line(string* line, SysConf* conf) {
 	memset(PERI_LONG, 0, LNG_LENGTH);
 	memset(MEAN_LONG, 0, LNG_LENGTH);
 
-	static Body output;
-
-	// --------------------------- 1-ST LINE PARSING ---------------------------
+	// ------------------------------------------------------
 
 	char c;
 
 	uint8_t count = 0;
-	size_t separators_indexes[9];
+	size_t separators_indexes[10];
 
 	for (size_t i = 0; i < line_length; i++) {
 		c = line[i];
 
 		if (c == sep) {
 			separators_indexes[count] = i;
+			printf("%u, %u\n", count, i);
+			count++;
 		}
 	}
 
-	uint8_t current_field = 0;
+	separators_indexes[9] = line_length;
+
+	size_t current_field = 0;
 	int32_t BodyId, BodyParent;
 	bool hasParent;
 
 	for (size_t i = 0; i < separators_indexes[current_field]; i++) {
-		BODY_ID[i] = line[i];
+		size_t j = i - separators_indexes[current_field] + 1;
+		BODY_ID[j] = line[i];
 	}
 
 	current_field++;
@@ -120,7 +123,11 @@ Body parse_line(string* line, SysConf* conf) {
 		MEAN_LONG[j] = line[i];
 	}
 
-	return output;
+	printf("\n%u, %u",current_field, separators_indexes[current_field + 1]);
+
+	//printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\n%s\n%s\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
+
+	return;
 }
 
 /*
