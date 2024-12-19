@@ -14,6 +14,7 @@ Body parse_line(string* line, SysConf* conf) {
 	string PARENT_ID[BODY_ID_LENGTH];
 
 	string BODY_MASS[BODY_MASS_LENGTH];
+	string SEMI_MAJOR_AXIS[SMA_LENGTH];
 	string ECCENTRICITY[ECC_LENGTH];
 	string INCLINATION[INCLINATION_LENGTH];
 	string AN[LNG_LENGTH];
@@ -24,6 +25,7 @@ Body parse_line(string* line, SysConf* conf) {
 	memset(BODY_NAME, 0, NAME_LENGTH);
 	memset(BODY_ID, 0, BODY_ID_LENGTH);
 	memset(BODY_MASS, 0, BODY_MASS_LENGTH);
+	memset(SEMI_MAJOR_AXIS, 0, SMA_LENGTH);
 	memset(ECCENTRICITY, 0, ECC_LENGTH);
 	memset(INCLINATION, 0, INCLINATION_LENGTH);
 	memset(AN, 0, LNG_LENGTH);
@@ -73,7 +75,49 @@ Body parse_line(string* line, SysConf* conf) {
 
 	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
 		size_t j = i - separators_indexes[current_field] - 1;
-		BODY_NAME[j] = line[i];
+		BODY_MASS[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		SEMI_MAJOR_AXIS[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		ECCENTRICITY[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		INCLINATION[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		AN[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		PERI_LONG[j] = line[i];
+	}
+
+	current_field++;
+
+	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
+		size_t j = i - separators_indexes[current_field] - 1;
+		MEAN_LONG[j] = line[i];
 	}
 
 	return output;
