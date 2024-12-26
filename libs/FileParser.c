@@ -23,7 +23,7 @@ void parse_line(string* line, SysConf* conf, Body* body) {
 
 	memset(BODY_ID, 0, BODY_ID_LENGTH);
 	memset(BODY_NAME, 0, NAME_LENGTH);
-	memset(BODY_ID, 0, BODY_ID_LENGTH);
+	memset(PARENT_ID, 0, BODY_ID_LENGTH);
 	memset(BODY_MASS, 0, BODY_MASS_LENGTH);
 	memset(SEMI_MAJOR_AXIS, 0, SMA_LENGTH);
 	memset(ECCENTRICITY, 0, ECC_LENGTH);
