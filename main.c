@@ -17,20 +17,20 @@ uint32_t lookingFor = 25544;
 time_t current_time;
 
 /* void InterpretArgs(uint8_t n, char** args) {
- 	if (n == 5) {
- 		for (uint8_t i=0; i<n; i++) {
- 			printf("%s\n", args[i]);
- 			if (!strcmp(args[i], "-s")) {
- 				strcpy(filename, args[i+1]);
- 			} else if (!strcmp(args[i], "-u")) {
- 				lookingFor = strint(args[i+1]);
- 			}
- 		}
+	if (n == 5) {
+		for (uint8_t i=0; i<n; i++) {
+			printf("%s\n", args[i]);
+			if (!strcmp(args[i], "-s")) {
+				strcpy(filename, args[i+1]);
+			} else if (!strcmp(args[i], "-u")) {
+				lookingFor = strint(args[i+1]);
+			}
+		}
 
- 		printf("%s\n%u\n\n", filename, lookingFor);
- 	} else {
- 		exit(-1);
- 	}
+		printf("%s\n%u\n\n", filename, lookingFor);
+	} else {
+		exit(-1);
+	}
 }*/
 
 /*void Print(TLE Object) {
@@ -167,7 +167,7 @@ int32_t main(uint8_t argc, char *argv[]) {
 		time(&rawtime_start);
 
 		TLE* AllObjs = GetAll(filename);
-		
+
 		time(&rawtime_end);
 
 		printf("Memory usage to store %d blocks : %llu bytes\nTime : %lld\n", block_number, sizeof(TLE) * block_number, rawtime_end-rawtime_start);
@@ -177,7 +177,7 @@ int32_t main(uint8_t argc, char *argv[]) {
 	return 0;
 }*/
 
-int32_t main(uint8_t argc, char *argv[]) {
+int32_t main(uint8_t argc, char* argv[]) {
 	char line[] = "1,Mercury,0,0.33010,0.38709893,0.20563069,7.00487,48.33167,77.45645,252.25084";
 
 	SysConf conf;
