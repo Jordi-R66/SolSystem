@@ -26,6 +26,7 @@ void parse_line(string* line, Body* body) {
 	memset(BODY_ID, 0, BODY_ID_LENGTH);
 	memset(BODY_NAME, 0, NAME_LENGTH);
 	memset(PARENT_ID, 0, BODY_ID_LENGTH);
+
 	memset(BODY_MASS, 0, BODY_MASS_LENGTH);
 	memset(SEMI_MAJOR_AXIS, 0, SMA_LENGTH);
 	memset(ECCENTRICITY, 0, ECC_LENGTH);
@@ -107,8 +108,6 @@ void parse_line(string* line, Body* body) {
 	}
 
 	bool hasParent;
-
-
 
 	//printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\nPeri LNG : %s°\nMean LNG : %s°\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
 
