@@ -7,5 +7,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
+#include <sys/types.h>
 
 typedef char string;
