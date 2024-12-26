@@ -37,95 +37,69 @@ void parse_line(string* line, SysConf* conf, Body* body) {
 	char c;
 
 	uint8_t count = 0;
-	size_t separators_indexes[10];
+	ssize_t last_comma = -1;
 
-	for (size_t i = 0; i < line_length; i++) {
+	for (ssize_t i = 0; i < line_length; i++) {
 		c = line[i];
 
+		ssize_t j = i - (last_comma + 1);
+
+		switch (count) {
+			case 0:
+				BODY_ID[j] = c != ',' ? c : 0;
+				break;
+
+			case 1:
+				BODY_NAME[j] = c != ',' ? c : 0;
+				break;
+
+			case 2:
+				PARENT_ID[j] = c != ',' ? c : 0;
+				break;
+
+			case 3:
+				BODY_MASS[j] = c != ',' ? c : 0;
+				break;
+
+			case 4:
+				SEMI_MAJOR_AXIS[j] = c != ',' ? c : 0;
+				break;
+
+			case 5:
+				ECCENTRICITY[j] = c != ',' ? c : 0;
+				break;
+
+			case 6:
+				INCLINATION[j] = c != ',' ? c : 0;
+				break;
+
+			case 7:
+				AN[j] = c != ',' ? c : 0;
+				break;
+
+			case 8:
+				PERI_LONG[j] = c != ',' ? c : 0;
+				break;
+
+			case 9:
+				MEAN_LONG[j] = c != ',' ? c : 0;
+				break;
+
+			default:
+				break;
+		}
+
 		if (c == sep) {
-			separators_indexes[count] = i;
-			printf("%u, %u\n", count, i);
+			last_comma = i;
 			count++;
 		}
 	}
 
-	separators_indexes[9] = line_length;
-
-	size_t current_field = 0;
-	int32_t BodyId, BodyParent;
 	bool hasParent;
 
-	for (size_t i = 0; i < separators_indexes[current_field]; i++) {
-		size_t j = i - separators_indexes[current_field] + 1;
-		BODY_ID[j] = line[i];
-	}
+	//printf("\n%u, %u\n\n",current_field, separators_indexes[current_field + 1]);
 
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		BODY_NAME[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		PARENT_ID[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		BODY_MASS[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		SEMI_MAJOR_AXIS[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		ECCENTRICITY[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		INCLINATION[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		AN[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		PERI_LONG[j] = line[i];
-	}
-
-	current_field++;
-
-	for (size_t i = separators_indexes[current_field] + 1; i < separators_indexes[current_field + 1]; i++) {
-		size_t j = i - separators_indexes[current_field] - 1;
-		MEAN_LONG[j] = line[i];
-	}
-
-	printf("\n%u, %u\n\n",current_field, separators_indexes[current_field + 1]);
-
-	printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\n%s\n%s\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
+	//printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\nPeri LNG : %s°\nMean LNG : %s°\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
 
 	return;
 }
