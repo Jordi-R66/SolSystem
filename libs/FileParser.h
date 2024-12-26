@@ -2,9 +2,9 @@
 
 #include "CONVERSIONS.h"
 
-#define NAME_LENGTH 25
+#define NAME_LENGTH 26
 
-#define BODY_ID_LENGTH 7
+#define BODY_ID_LENGTH 5
 
 #define BODY_MASS_LENGTH 16
 
@@ -35,13 +35,18 @@
 #define COSPAR_LENGTH (YR_LENGTH + LAUNCH_NB_LENGTH + LAUNCH_PART_LENGTH - 2)
 */
 
+typedef uint8_t id_t;
+
 typedef struct SysConf {
 	string SysName[NAME_LENGTH];
 	float MassScale;
 	float DistScale;
+	float Epoch_TT;
+	bool HeaderLine;
 } SysConf;
 
 typedef struct Body {
+	SysConf* sysConf;
 	uint16_t BodyId;
 	uint16_t ParentId;
 
@@ -63,7 +68,7 @@ typedef struct Body {
 
 } Body;
 
-void parse_line(string* line, SysConf* conf, Body* body);
+void parse_line(string* line, Body* body);
 
 // ------------------------------------------------------------------
 
