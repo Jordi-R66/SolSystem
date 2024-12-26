@@ -123,9 +123,9 @@ void parse_line(string* line, SysConf* conf, Body* body) {
 		MEAN_LONG[j] = line[i];
 	}
 
-	printf("\n%u, %u",current_field, separators_indexes[current_field + 1]);
+	printf("\n%u, %u\n\n",current_field, separators_indexes[current_field + 1]);
 
-	//printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\n%s\n%s\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
+	printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\n%s\n%s\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
 
 	return;
 }
