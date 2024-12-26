@@ -188,6 +188,7 @@ int32_t main(uint8_t argc, char *argv[]) {
 	conf.DistScale = 149597870700.f;
 
 	parse_line(line, &conf, &Mercure);
+	printf("%s\n", line);
 
 	return 0;
 }
