@@ -41,48 +41,49 @@ void parse_line(string* line, SysConf* conf, Body* body) {
 
 	for (ssize_t i = 0; i < line_length; i++) {
 		c = line[i];
+		char char_copy = c != ',' ? c : 0;
 
 		ssize_t j = i - (last_comma + 1);
 
 		switch (count) {
 			case 0:
-				BODY_ID[j] = c != ',' ? c : 0;
+				BODY_ID[j] = char_copy;
 				break;
 
 			case 1:
-				BODY_NAME[j] = c != ',' ? c : 0;
+				BODY_NAME[j] = char_copy;
 				break;
 
 			case 2:
-				PARENT_ID[j] = c != ',' ? c : 0;
+				PARENT_ID[j] = char_copy;
 				break;
 
 			case 3:
-				BODY_MASS[j] = c != ',' ? c : 0;
+				BODY_MASS[j] = char_copy;
 				break;
 
 			case 4:
-				SEMI_MAJOR_AXIS[j] = c != ',' ? c : 0;
+				SEMI_MAJOR_AXIS[j] = char_copy;
 				break;
 
 			case 5:
-				ECCENTRICITY[j] = c != ',' ? c : 0;
+				ECCENTRICITY[j] = char_copy;
 				break;
 
 			case 6:
-				INCLINATION[j] = c != ',' ? c : 0;
+				INCLINATION[j] = char_copy;
 				break;
 
 			case 7:
-				AN[j] = c != ',' ? c : 0;
+				AN[j] = char_copy;
 				break;
 
 			case 8:
-				PERI_LONG[j] = c != ',' ? c : 0;
+				PERI_LONG[j] = char_copy;
 				break;
 
 			case 9:
-				MEAN_LONG[j] = c != ',' ? c : 0;
+				MEAN_LONG[j] = char_copy;
 				break;
 
 			default:
