@@ -51,8 +51,8 @@ typedef struct SysConf {
 
 typedef struct Body {
 	SysConf* sysConf;
-	uint16_t BodyId;
-	uint16_t ParentId;
+	id_t BodyId;
+	id_t ParentId;
 
 	string BodyName[NAME_LENGTH];
 
