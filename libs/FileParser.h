@@ -5,6 +5,7 @@
 #define NAME_LENGTH 26
 
 #define BODY_ID_LENGTH 5
+#define ID_BITS 8
 
 #define BODY_MASS_LENGTH 16
 
@@ -39,7 +40,7 @@
 #define COSPAR_LENGTH (YR_LENGTH + LAUNCH_NB_LENGTH + LAUNCH_PART_LENGTH - 2)
 */
 
-typedef uint8_t id_t;
+typedef int8_t id_t;
 
 typedef struct SysConf {
 	string SysName[NAME_LENGTH];

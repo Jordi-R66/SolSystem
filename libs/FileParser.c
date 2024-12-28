@@ -7,7 +7,7 @@ void parse_line(string* line, Body* body) {
 
 	char sep = ',';
 
-	char* endptr;
+	char** endptr;
 
 	size_t line_length = strlen(line);
 
@@ -107,7 +107,33 @@ void parse_line(string* line, Body* body) {
 		}
 	}
 
+	// Information conversion
+
 	bool hasParent;
+	id_t body_id, parent_id;
+	float mass, sma, ecc, inc, an, pl, mn;
+
+	body_id = (id_t)strtol(BODY_ID, endptr, 10);
+	parent_id = (id_t)strtol(PARENT_ID, endptr, 10);
+
+	hasParent = (parent_id) && (1 << (ID_BITS - 1));
+
+	mass = strtof(BODY_MASS, endptr);
+	sma = strtof(SEMI_MAJOR_AXIS, endptr);
+	ecc = strtof(ECCENTRICITY, endptr);
+	inc = strtof(INCLINATION, endptr);
+	an = strtof(AN, endptr);
+	pl = strtof(PERI_LONG, endptr);
+	mn = strtof(MEAN_LONG, endptr);
+
+	// Information saving
+
+	body->BodyId = body_id;
+	body->ParentId = parent_id;
+	strcpy(body->BodyName, BODY_NAME);
+
+	body->BodyMass = mass;
+	
 
 	//printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\nPeri LNG : %s°\nMean LNG : %s°\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
 
