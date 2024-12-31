@@ -6,12 +6,6 @@
 
 #define G 6.67428E-11
 
-#undef M_PI
-#define M_PI 3.141592653589793
-
-#define DEGS2RADS M_PI/180.0
-#define RADS2DEGS 180.0/M_PI
-
 double OrbitalPeriod(double MeanMotion);
 
 uint64_t SemiMajorAxis(double Period);
