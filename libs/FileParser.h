@@ -70,6 +70,7 @@ typedef struct Body {
 
 	float PeriArg;
 	float MeanAnomaly;
+	float MeanMotion;
 
 } Body;
 
