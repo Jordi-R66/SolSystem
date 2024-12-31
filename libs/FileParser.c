@@ -133,7 +133,16 @@ void parse_line(string* line, Body* body) {
 	strcpy(body->BodyName, BODY_NAME);
 
 	body->BodyMass = mass;
-	
+	body->SemiMajorAxis = sma;
+	body->Eccentricity = ecc;
+	body->Inclination = inc;
+	body->AscNodeLong = an;
+	body->PeriLong = pl;
+	body->MeanLong = mn;
+
+	body->PeriArg = pl - an;
+	body->MeanAnomaly = NAN;
+	body->MeanMotion = NAN;
 
 	//printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\nPeri LNG : %s°\nMean LNG : %s°\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
 
