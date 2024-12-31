@@ -72,6 +72,9 @@ typedef struct Body {
 	float MeanAnomaly;
 	float MeanMotion;
 
+	float x, y, z;
+	float v_x, v_y, v_z;
+
 } Body;
 
 void parse_line(string* line, Body* body);
