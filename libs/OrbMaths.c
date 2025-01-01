@@ -6,7 +6,7 @@
 // 	return pow(x, 1.0/3.0);
 // }
 
-double OrbitalPeriod(double MeanMotion) {
+double OrbitalPeriod(Body* body, Body* Parent) {
 	double Period;
 
 	Period = (double)(EARTH_DAY_LENGTH / MeanMotion);
