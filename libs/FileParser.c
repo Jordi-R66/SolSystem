@@ -13,6 +13,46 @@ SysConf parseConfFile(string* filename) {
 	return conf;
 }
 
+Body* parseBodiesFile(string* filename, SysConf* conf) {
+	char buffer[LINE_LENGTH];
+	memset(buffer, 0, LINE_LENGTH);
+
+	char c = 0;
+	id_t lineNumber = 0;
+	size_t col = 0;
+
+	Body* bodies = (Body*)calloc(DEFAULT_BODY_NUMBER, BODY_SIZE);
+	size_t capacity = BODY_SIZE;
+
+	FILE* fp = fopen(filename, "r");
+
+	while (c != EOF) {
+		c = fgetc(fp);
+
+		if (c != '\n' && c != EOF) {
+			buffer[col++] = c;
+		} else {
+			if (col != 0 && !(conf->HeaderLine && (lineNumber == 0))) {
+				if (lineNumber == (capacity - 1)) {
+					bodies = realloc(bodies, capacity + DEFAULT_BODY_NUMBER);
+				} else if (lineNumber <= 0 && capacity > DEFAULT_BODY_NUMBER) {
+					free(bodies);
+					exit(EXIT_FAILURE);
+				}
+
+				bodies[lineNumber++] = parse_line(buffer, conf);
+				col = 0;
+			}
+		}
+	}
+
+	fclose(fp);
+
+	bodies = realloc(bodies, capacity);
+
+	return bodies;
+}
+
 Body parse_line(string* line, SysConf* conf) {
 	Body body;
 
