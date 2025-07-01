@@ -16,26 +16,12 @@
 
 #define NAME_LENGTH 26
 
-#define BODY_ID_LENGTH 5
-#define ID_BITS 8
-
-#define BODY_MASS_LENGTH 16
-
-#define SMA_LENGTH 31
-#define ECC_LENGTH 16
-#define INCLINATION_LENGTH 11
-#define LNG_LENGTH 11
-
-#define FIELDS 10
-
-#define LINE_LENGTH (NAME_LENGTH + 2 * BODY_ID_LENGTH + BODY_MASS_LENGTH + SMA_LENGTH + ECC_LENGTH + INCLINATION_LENGTH + 3 * LNG_LENGTH + 1)
-
 typedef char string;
 typedef int8_t id_t;
 
 #pragma pack(1)
 
-typedef struct SysConf {
+typedef struct SysConf_Struct {
 	string SysName[NAME_LENGTH];
 	long double MassScale;
 	long double DistScale;
