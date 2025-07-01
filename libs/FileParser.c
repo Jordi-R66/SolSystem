@@ -34,7 +34,8 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 		} else {
 			if (col != 0 && !(conf->HeaderLine && (lineNumber == 0))) {
 				if (lineNumber == (capacity - 1)) {
-					bodies = realloc(bodies, capacity + DEFAULT_BODY_NUMBER);
+					capacity += DEFAULT_BODY_NUMBER;
+					bodies = realloc(bodies, capacity * BODY_SIZE);
 				} else if (lineNumber <= 0 && capacity > DEFAULT_BODY_NUMBER) {
 					free(bodies);
 					exit(EXIT_FAILURE);
@@ -49,7 +50,7 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 
 	fclose(fp);
 
-	bodies = realloc(bodies, capacity);
+	bodies = realloc(bodies, capacity * BODY_SIZE);
 
 	return (BodyFile){lineNumber, bodies};
 }
