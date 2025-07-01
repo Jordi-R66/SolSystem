@@ -2,7 +2,7 @@
 
 #define EOS '\0'
 
-void parse_line(string* line, Body* body) {
+void parse_line(string* line, Body* body, SysConf* conf) {
 	SysConf* conf = body->sysConf;
 
 	char sep = ',';
@@ -110,13 +110,13 @@ void parse_line(string* line, Body* body) {
 
 	hasParent = (parent_id) && (1 << (ID_BITS - 1));
 
-	mass = strtof(BODY_MASS, &endptr);
-	sma = strtof(SEMI_MAJOR_AXIS, &endptr);
-	ecc = strtof(ECCENTRICITY, &endptr);
-	inc = strtof(INCLINATION, &endptr);
-	an = strtof(AN, &endptr);
-	pl = strtof(PERI_LONG, &endptr);
-	mn = strtof(MEAN_LONG, &endptr);
+	mass = strtold(BODY_MASS, &endptr);
+	sma = strtold(SEMI_MAJOR_AXIS, &endptr);
+	ecc = strtold(ECCENTRICITY, &endptr);
+	inc = strtold(INCLINATION, &endptr);
+	an = strtold(AN, &endptr);
+	pl = strtold(PERI_LONG, &endptr);
+	mn = strtold(MEAN_LONG, &endptr);
 
 	// Information saving
 
@@ -124,8 +124,8 @@ void parse_line(string* line, Body* body) {
 	body->ParentId = parent_id;
 	strcpy(body->BodyName, BODY_NAME);
 
-	body->BodyMass = mass;
-	body->SemiMajorAxis = sma;
+	body->BodyMass = mass * powl(10.0l, conf->MassScale);
+	body->SemiMajorAxis = sma * conf->DistScale;
 	body->Eccentricity = ecc;
 	body->Inclination = inc;
 	body->AscNodeLong = an;
