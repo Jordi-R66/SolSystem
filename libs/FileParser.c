@@ -106,7 +106,7 @@ Body parse_line(string* line, SysConf* conf) {
 
 	bool hasParent;
 	id_t body_id, parent_id;
-	float mass, sma, ecc, inc, an, pl, mn;
+	long double mass, sma, ecc, inc, an, pl, mn;
 
 	body_id = (id_t)strtol(BODY_ID, &endptr, 10);
 	parent_id = (id_t)strtol(PARENT_ID, &endptr, 10);
@@ -124,6 +124,7 @@ Body parse_line(string* line, SysConf* conf) {
 	// Information saving
 
 	body.BodyId = body_id;
+	body.hasParent = hasParent;
 	body.ParentId = parent_id;
 	strcpy(body.BodyName, BODY_NAME);
 
