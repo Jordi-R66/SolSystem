@@ -7,7 +7,7 @@
 long double OrbitalPeriod(Body* body) {
 	long double Period;
 
-	long double parentMu = body->hasParent ? body->ParentPTR->stdGravParam : 0.0l;
+	long double parentMu = body->hasParent ? ((Body*)((Body*)body->ParentPTR))->stdGravParam : 0.0l;
 
 	Period = 2.0l * M_PIl * sqrtl(powl(body->SemiMajorAxis, 3.0l) / (body->stdGravParam + parentMu));
 
@@ -49,7 +49,7 @@ long double KeplerPrime(long double EccentricAnomaly, long double Eccentricity) 
 }
 
 long double AngularSpeed(Body* body) {
-	long double parentMu = body->hasParent ? body->ParentPTR->stdGravParam : 0.0l;
+	long double parentMu = body->hasParent ? ((Body*)body->ParentPTR)->stdGravParam : 0.0l;
 
 	return sqrtl((body->stdGravParam + parentMu)/powl(body->SemiMajorAxis, 3.0l));
 }
@@ -73,7 +73,7 @@ long double MeanLongitude(long double MeanAno, long double LNA, long double ArgP
 long double OrbSpeed(Body* body, long double altitude) {
 	long double speed;
 
-	long double parentMu = body->hasParent ? body->ParentPTR->stdGravParam : 0.0l;
+	long double parentMu = body->hasParent ? ((Body*)body->ParentPTR)->stdGravParam : 0.0l;
 
 	speed = sqrtl((body->stdGravParam + parentMu) * (2.0l / (altitude) - 1.0l/body->SemiMajorAxis));
 
