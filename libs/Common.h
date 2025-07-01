@@ -35,9 +35,9 @@ typedef int8_t id_t;
 
 typedef struct SysConf {
 	string SysName[NAME_LENGTH];
-	float MassScale;
-	float DistScale;
-	float Epoch_TT;
+	long double MassScale;
+	long double DistScale;
+	long double Epoch_TT;
 	bool HeaderLine;
 } SysConf;
 
@@ -50,20 +50,21 @@ typedef struct Body {
 
 	bool hasParent;
 
-	float BodyMass;
+	long double BodyMass;
+	long double stdGravParam;
 
-	float SemiMajorAxis;
-	float Eccentricity;
-	float Inclination;
-	float AscNodeLong;
-	float PeriLong;
-	float MeanLong;
+	long double SemiMajorAxis;
+	long double Eccentricity;
+	long double Inclination;
+	long double AscNodeLong;
+	long double PeriLong;
+	long double MeanLong;
 
-	float PeriArg;
-	float MeanAnomaly;
-	float MeanMotion;
+	long double PeriArg;
+	long double MeanAnomaly;
+	long double MeanMotion;
 
-	float x, y, z;
-	float v_x, v_y, v_z, v;
+	long double x, y, z;
+	long double v_x, v_y, v_z, v;
 
 } Body;
