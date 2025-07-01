@@ -7,7 +7,7 @@ void parse_line(string* line, Body* body) {
 
 	char sep = ',';
 
-	char** endptr;
+	char* endptr;
 
 	size_t line_length = strlen(line);
 
@@ -105,18 +105,18 @@ void parse_line(string* line, Body* body) {
 	id_t body_id, parent_id;
 	float mass, sma, ecc, inc, an, pl, mn;
 
-	body_id = (id_t)strtol(BODY_ID, endptr, 10);
-	parent_id = (id_t)strtol(PARENT_ID, endptr, 10);
+	body_id = (id_t)strtol(BODY_ID, &endptr, 10);
+	parent_id = (id_t)strtol(PARENT_ID, &endptr, 10);
 
 	hasParent = (parent_id) && (1 << (ID_BITS - 1));
 
-	mass = strtof(BODY_MASS, endptr);
-	sma = strtof(SEMI_MAJOR_AXIS, endptr);
-	ecc = strtof(ECCENTRICITY, endptr);
-	inc = strtof(INCLINATION, endptr);
-	an = strtof(AN, endptr);
-	pl = strtof(PERI_LONG, endptr);
-	mn = strtof(MEAN_LONG, endptr);
+	mass = strtof(BODY_MASS, &endptr);
+	sma = strtof(SEMI_MAJOR_AXIS, &endptr);
+	ecc = strtof(ECCENTRICITY, &endptr);
+	inc = strtof(INCLINATION, &endptr);
+	an = strtof(AN, &endptr);
+	pl = strtof(PERI_LONG, &endptr);
+	mn = strtof(MEAN_LONG, &endptr);
 
 	// Information saving
 
@@ -144,7 +144,7 @@ void parse_line(string* line, Body* body) {
 void print_body(Body* body) {
 	printf("Body name : %s\n");
 
-	printf("---------------------------------- TLE ----------------------------------\n");
+	printf("---------------------------------- DATA ----------------------------------\n");
 
 	printf("BODY ID : %X\n", body->BodyId);
 	printf("PARENT ID : %X\n", body->ParentId);
@@ -157,20 +157,4 @@ void print_body(Body* body) {
 	printf("ARG. OF PERIAPSIS : %.4f degs\n", body->PeriArg);
 	printf("MEAN ANOMALY : %.4f degs\n", body->MeanAnomaly);
 	printf("MEAN MOTION : %.8f rev/(sid. day)\n", body->MeanMotion);
-
-	printf("-------------------------------- RESULTS --------------------------------\n");
-
-	printf("Orbital Period : %.4f secs (%s)\n", OrbPeriod, secstohms(OrbPeriod));
-	printf("Semi Major Axis : %llu m\n", SMA);
-	printf("Apoapsis : %llu m | Periapsis : %llu m | Epoch : %llu m\n", Ap - (uint64_t)EARTH_RADIUS, Pe - (uint64_t)EARTH_RADIUS, Epoch_Alt);
-	printf("Speed @ Ap : %.4f m/s | Pe : %.4f m/s | Ep : %.4f m/s \n", Speed_Ap, Speed_Pe, Speed_Epoch);
-
-	printf("------------------------------- CURRENTLY -------------------------------\n");
-
-	printf("DATE (UTC) : %0*d/%0*d/%0*d %0*d:%0*d:%0*d\n", 2, utc->tm_mday, 2, utc->tm_mon + 1, 4, epoch_year, 2, utc->tm_hour, 2, utc->tm_min, 2, utc->tm_sec);
-	printf("MEAN ANOMALY : %.4f degs\n", Current_MA);
-	printf("ECC. ANOMALY : %.4f rads\n", Current_E);
-	printf("TRUE ANOMALY : %.4f degs\n", Current_TA);
-	printf("ALTITUDE : %llu m\n", Current_Alt);
-	printf("SPEED : %.4f m/s\n", Current_Spd);
 }
