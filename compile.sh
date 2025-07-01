@@ -12,4 +12,4 @@ EXEC="SolSytem"
 
 ARGS="-Wall -O3 -std=c17 -m64 -march=x86-64 -flto"
 
-$COMPILER $ARGS $SOURCES -o $OUTPUT_DIR/$EXEC -lm
+$COMPILER $ARGS $SOURCES -o $OUTPUT_DIR/$EXEC.out -lm
