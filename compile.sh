@@ -6,7 +6,7 @@ SOURCES="libs/OrbMaths.c libs/FileParser.c libs/CONVERSIONS.c libs/Algos.c libs/
 
 OUTPUT_DIR="output"
 
-mkdir $OUTPUT_DIR
+mkdir -p $OUTPUT_DIR
 
 EXEC="SolSytem"
 
