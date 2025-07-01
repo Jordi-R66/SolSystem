@@ -13,7 +13,7 @@ SysConf parseConfFile(string* filename) {
 	return conf;
 }
 
-Body* parseBodiesFile(string* filename, SysConf* conf) {
+BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 	char buffer[LINE_LENGTH];
 	memset(buffer, 0, LINE_LENGTH);
 
@@ -50,7 +50,7 @@ Body* parseBodiesFile(string* filename, SysConf* conf) {
 
 	bodies = realloc(bodies, capacity);
 
-	return bodies;
+	return (BodyFile){lineNumber, bodies};
 }
 
 Body parse_line(string* line, SysConf* conf) {

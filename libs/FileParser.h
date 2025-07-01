@@ -10,7 +10,12 @@ SysConf parseConfFile(string* filename);
 
 #define DEFAULT_BODY_NUMBER 16
 
+typedef struct BodyFile {
+	size_t numberOfBodies;
+	Body* bodies;
+} BodyFile;
+
 Body parse_line(string* line, SysConf* conf);
-Body* parseBodiesFile(string* filename, SysConf* conf);
+BodyFile parseBodiesFile(string* filename, SysConf* conf);
 
 // ------------------------------------------------------------------
