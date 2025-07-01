@@ -18,7 +18,7 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 	memset(buffer, 0, LINE_LENGTH);
 
 	char c = 0;
-	id_t lineNumber = 0;
+	bodyId_t lineNumber = 0;
 	size_t col = 0;
 
 	Body* bodies = (Body*)calloc(DEFAULT_BODY_NUMBER, BODY_SIZE);
@@ -155,11 +155,11 @@ Body parse_line(string* line, SysConf* conf) {
 	// Information conversion
 
 	bool hasParent;
-	id_t body_id, parent_id;
+	bodyId_t body_id, parent_id;
 	long double mass, sma, ecc, inc, an, pl, mn;
 
-	body_id = (id_t)strtol(BODY_ID, &endptr, 10);
-	parent_id = (id_t)strtol(PARENT_ID, &endptr, 10);
+	body_id = (bodyId_t)strtol(BODY_ID, &endptr, 10);
+	parent_id = (bodyId_t)strtol(PARENT_ID, &endptr, 10);
 
 	hasParent = (parent_id) && (1 << (ID_BITS - 1));
 

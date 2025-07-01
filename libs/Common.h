@@ -17,7 +17,7 @@
 #define NAME_LENGTH 26
 
 typedef char string;
-typedef int8_t id_t;
+typedef int8_t bodyId_t;
 
 #pragma pack(1)
 

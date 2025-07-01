@@ -20,10 +20,10 @@
 
 typedef struct BodyStruct {
 	SysConf* sysConf;
-	id_t BodyId;
+	bodyId_t BodyId;
 
 	bool hasParent;
-	id_t ParentId;
+	bodyId_t ParentId;
 	void* ParentPTR;
 
 	string BodyName[NAME_LENGTH];
