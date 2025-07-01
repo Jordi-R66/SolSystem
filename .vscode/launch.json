@@ -9,7 +9,10 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/output/SolSystem.out",
-			"args": [],
+			"args": [
+				"${workspaceFolder}/Sol.conf",
+				"${workspaceFolder}/SOl.bodies"
+			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],
