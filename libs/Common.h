@@ -9,10 +9,10 @@
 #include <math.h>
 #include <sys/types.h>
 
-#undef M_PI
-#define M_PI 3.141592653589793
-#define DEGS2RADS M_PI/180.0
-#define RADS2DEGS 180.0/M_PI
+#define M_PIl 3.141592653589793238462643383279502884L
+
+#define DEGS2RADS M_PIl/180.0l
+#define RADS2DEGS 180.0l/M_PIl
 
 #define NAME_LENGTH 26
 
@@ -40,32 +40,3 @@ typedef struct SysConf {
 	long double Epoch_TT;
 	bool HeaderLine;
 } SysConf;
-
-typedef struct Body {
-	SysConf* sysConf;
-	id_t BodyId;
-	id_t ParentId;
-	Body* ParentPTR;
-
-	string BodyName[NAME_LENGTH];
-
-	bool hasParent;
-
-	long double BodyMass;
-	long double stdGravParam;
-
-	long double SemiMajorAxis;
-	long double Eccentricity;
-	long double Inclination;
-	long double AscNodeLong;
-	long double PeriLong;
-	long double MeanLong;
-
-	long double PeriArg;
-	long double MeanAnomaly;
-	long double MeanMotion;
-
-	long double x, y, z;
-	long double v_x, v_y, v_z, v;
-
-} Body;
