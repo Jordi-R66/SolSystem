@@ -2,80 +2,66 @@
 
 // ------------------------------------------------------------------
 
-// double cbrt(double x) {
-// 	return pow(x, 1.0/3.0);
-// }
 
-double OrbitalPeriod(Body* body, Body* Parent) {
-	double Period;
 
-	Period = (double)(EARTH_DAY_LENGTH / MeanMotion);
+long double OrbitalPeriod(Body* body) {
+	long double Period;
+
+	long double parentMu = body->hasParent ? body->ParentPTR->stdGravParam : 0.0l;
+
+	Period = 2.0l * M_PIl * sqrtl(powl(body->SemiMajorAxis, 3.0l) / (body->stdGravParam + parentMu));
 
 	return Period;
 }
 
-uint64_t SemiMajorAxis(double Period) {
-	double SMA;
+long double Apoapsis(Body* body) {
+	long double Apoapsis = 0;
 
-	SMA = cbrt(pow((Period / (2.0 * M_PI)), 2.0) * EARTH_MU);
-
-	//SMA = cbrt((G * EARTH_MASS * pow(Period, 2))/(4.0*pow(M_PI, 2.0)));
-
-	if ((SMA >= 0) & (SMA <= 0xffffffffffffffffULL)) {
-		return (uint64_t)SMA;
-	} else {
-		return 0;
-	}
-}
-
-
-
-uint64_t Apoapsis(double Eccentricity, uint64_t SemiMajorAxis) {
-	uint64_t Apoapsis = 0;
-
-	Apoapsis = (uint64_t)(SemiMajorAxis * (1.0 + Eccentricity));
+	Apoapsis = body->SemiMajorAxis * (1.0 + body->Eccentricity);
 
 	return Apoapsis;
 }
 
-uint64_t Periapsis(double Eccentricity, uint64_t SemiMajorAxis) {
-	uint64_t Periapsis = 0;
+long double Periapsis(Body* body) {
+	long double Periapsis = 0;
 
-	Periapsis = (uint64_t)(SemiMajorAxis * (1.0 - Eccentricity));
+	Periapsis = body->SemiMajorAxis * (1.0l - body->Eccentricity);
 
 	return Periapsis;
 }
 
-uint64_t OrbAlt(double Eccentricity, uint64_t SemiMajorAxis, double EccentricAnomaly) {
-	return (uint64_t)(SemiMajorAxis * (1.0 - Eccentricity * cos(EccentricAnomaly)));
+long double OrbAlt(Body* body, long double EccentricAnomaly) {
+	return body->SemiMajorAxis * (1.0l - body->Eccentricity * cos(EccentricAnomaly));
 }
 
-uint64_t OrbAltTA(double Eccentricity, uint64_t SemiMajorAxis, double TrueAnomaly) {
-	return (uint64_t)(SemiMajorAxis * (1.0 - pow(Eccentricity, 2.0)) / (1.0 + Eccentricity * cos(TrueAnomaly)));
+long double OrbAltTA(Body* body, long double TrueAnomaly) {
+	return body->SemiMajorAxis * (1.0l - powl(body->Eccentricity, 2.0l)) / (1.0l + body->Eccentricity * cosl(TrueAnomaly));
 }
 
 
 
-double KeplerEquation(double EccentricAnomaly, double Eccentricity) {
-	return EccentricAnomaly - Eccentricity * sin(EccentricAnomaly);
+long double KeplerEquation(long double EccentricAnomaly, long double Eccentricity) {
+	return EccentricAnomaly - Eccentricity * sinl(EccentricAnomaly);
 }
 
-double KeplerPrime(double EccentricAnomaly, double Eccentricity) {
-	return 1.0 - Eccentricity * cos(EccentricAnomaly);
+long double KeplerPrime(long double EccentricAnomaly, long double Eccentricity) {
+	return 1.0l - Eccentricity * cosl(EccentricAnomaly);
 }
 
-double AngularSpeed(double SemiMajorAxis) {
-	return sqrt(EARTH_MU/pow(SemiMajorAxis, 3));
+long double AngularSpeed(Body* body) {
+	long double parentMu = body->hasParent ? body->ParentPTR->stdGravParam : 0.0l;
+
+	return sqrtl((body->stdGravParam + parentMu)/powl(body->SemiMajorAxis, 3.0l));
 }
 
-double TrueAnomaly(double Eccentricity, double EccentricAnomaly) {
+long double TrueAnomaly(long double Eccentricity, long double EccentricAnomaly) {
 	// return 2.0 * atan(sqrt((1.0 + Eccentricity) / (1.0 - Eccentricity)) * tan(EccentricAnomaly/2.0));
-	double beta_ = Eccentricity / (1.0 + sqrt(1.0 - Eccentricity*Eccentricity));
-	double nu_ = EccentricAnomaly + 2.0 * atan((beta_*sin(EccentricAnomaly)) / (1.0 - beta_ * cos(EccentricAnomaly)));
+	long double beta_ = Eccentricity / (1.0l + sqrtl(1.0l - Eccentricity*Eccentricity));
+	long double nu_ = EccentricAnomaly + 2.0l * atanl((beta_*sinl(EccentricAnomaly)) / (1.0l - beta_ * cosl(EccentricAnomaly)));
 
 	return nu_;
 }
-double MeanLongitude(double MeanAno, double LNA, double ArgPeri) {
+long double MeanLongitude(long double MeanAno, long double LNA, long double ArgPeri) {
 	// MeanLNG = MeanAno + PeriLNG = MeanAno + LNA + ArgPeri
 
 	// As described here https://fr.wikipedia.org/wiki/Longitude_moyenne
@@ -84,16 +70,18 @@ double MeanLongitude(double MeanAno, double LNA, double ArgPeri) {
 }
 
 
-double OrbSpeed(uint64_t altitude, uint64_t SemiMajorAxis) {
-	double speed;
+long double OrbSpeed(Body* body, long double altitude) {
+	long double speed;
 
-	speed = sqrt(EARTH_MU * (2/((double)altitude) - 1/((double)SemiMajorAxis)));
+	long double parentMu = body->hasParent ? body->ParentPTR->stdGravParam : 0.0l;
+
+	speed = sqrtl((body->stdGravParam + parentMu) * (2.0l / (altitude) - 1.0l/body->SemiMajorAxis));
 
 	return speed;
 }
 
-double Lorentz(double v) {
-	const double c_sqr = pow(299792458.0, 2.0);
+long double Lorentz(long double v) {
+	const long double c_sqr = powl(299792458.0l, 2.0l);
 
-	return 1.0 / sqrt(1 - pow(v, 2.0)/c_sqr);
+	return 1.0l / sqrtl(1.0l - powl(v, 2.0l)/c_sqr);
 }

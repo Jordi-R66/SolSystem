@@ -1,26 +1,25 @@
 #pragma once
 
 #include "Common.h"
+#include "Body.h"
 
 //#define EARTH_DAY_LENGTH 86400.0//86164.096
 
-#define G 6.67428E-11
+#define G 6.67428E-11l
 
-double OrbitalPeriod(double MeanMotion);
+long double OrbitalPeriod(Body* body);
 
-uint64_t SemiMajorAxis(double Period);
+long double Apoapsis(Body* body);
+long double Periapsis(Body* body);
+long double OrbAlt(Body* body, long double EccentricAnomaly);
+long double OrbAltTA(Body* body, long double TrueAnomaly);
 
-uint64_t Apoapsis(double Eccentricity, uint64_t SemiMajorAxis);
-uint64_t Periapsis(double Eccentricity, uint64_t SemiMajorAxis);
-uint64_t OrbAlt(double Eccentricity, uint64_t SemiMajorAxis, double EccentricAnomaly);
-uint64_t OrbAltTA(double Eccentricity, uint64_t SemiMajorAxis, double TrueAnomaly);
+long double KeplerEquation(long double EccentricAnomaly, long double Eccentricity);
+long double KeplerPrime(long double EccentricAnomaly, long double Eccentricity);
 
-double KeplerEquation(double E, double e);
-double KeplerPrime(double E, double e);
+long double AngularSpeed(Body* body);
+long double TrueAnomaly(long double Eccentricity, long double EccentricAnomaly);
+long double MeanLongitude(long double MeanAno, long double LNA, long double ArgPeri);
 
-double AngularSpeed(double SemiMajorAxis);
-double TrueAnomaly(double Eccentricity, double EccentricAnomaly);
-double MeanLongitude(double MeanAno, double LNA, double ArgPeri);
-
-double OrbSpeed(uint64_t altitude, uint64_t SemiMajorAxis);
-double Lorentz(double speed);
+long double OrbSpeed(Body* body, long double altitude);
+long double Lorentz(long double v);
