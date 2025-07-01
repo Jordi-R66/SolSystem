@@ -22,7 +22,7 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 	size_t col = 0;
 
 	Body* bodies = (Body*)calloc(DEFAULT_BODY_NUMBER, BODY_SIZE);
-	size_t capacity = BODY_SIZE;
+	size_t capacity = DEFAULT_BODY_NUMBER;
 
 	FILE* fp = fopen(filename, "r");
 
