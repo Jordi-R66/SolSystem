@@ -50,3 +50,5 @@ typedef struct BodyStruct {
 #pragma pack()
 
 #define BODY_SIZE sizeof(Body)
+
+void print_body(Body* body);

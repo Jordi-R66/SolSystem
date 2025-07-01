@@ -9,6 +9,6 @@
 // Body parsing
 
 Body parse_line(string* line, SysConf* conf);
-void print_body(Body* body);
+Body* parseBodiesFile(string* filename, SysConf* conf);
 
 // ------------------------------------------------------------------
