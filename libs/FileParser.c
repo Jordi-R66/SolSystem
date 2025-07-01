@@ -2,6 +2,16 @@
 
 #define EOS '\0'
 
+SysConf parseConfFile(string* filename) {
+	FILE* fp = fopen(filename, "r");
+
+	SysConf conf;
+
+	fread(&conf, sizeof(SysConf), 1, fp);
+	fclose(fp);
+
+	return conf;
+}
 
 Body parse_line(string* line, SysConf* conf) {
 	Body body;

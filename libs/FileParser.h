@@ -4,7 +4,7 @@
 #include "Body.h"
 
 // Config parsing
-
+SysConf parseConfFile(string* filename);
 
 // Body parsing
 
