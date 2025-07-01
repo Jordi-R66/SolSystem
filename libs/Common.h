@@ -33,6 +33,8 @@
 typedef char string;
 typedef int8_t id_t;
 
+#pragma pack(1)
+
 typedef struct SysConf {
 	string SysName[NAME_LENGTH];
 	long double MassScale;
@@ -40,3 +42,5 @@ typedef struct SysConf {
 	long double Epoch_TT;
 	bool HeaderLine;
 } SysConf;
+
+#pragma pack()
