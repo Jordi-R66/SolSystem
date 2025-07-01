@@ -12,7 +12,6 @@ int32_t main(int argc, char* argv[]) {
 
 	SysConf conf;
 	Body Mercure;
-	Mercure.sysConf = &conf;
 
 	strcpy(conf.SysName, "Sol");
 	conf.MassScale = 1e25f;
@@ -20,7 +19,7 @@ int32_t main(int argc, char* argv[]) {
 	conf.Epoch_TT = 2451545.0f;
 	conf.HeaderLine = true;
 
-	parse_line(line, &Mercure, &conf);
+	Mercure = parse_line(line, &conf);
 	printf("%s\n", line);
 
 	return 0;
