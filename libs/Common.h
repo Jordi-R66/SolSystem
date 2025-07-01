@@ -45,6 +45,7 @@ typedef struct Body {
 	SysConf* sysConf;
 	id_t BodyId;
 	id_t ParentId;
+	Body* ParentPTR;
 
 	string BodyName[NAME_LENGTH];
 
