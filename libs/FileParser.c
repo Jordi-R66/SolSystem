@@ -42,6 +42,7 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 
 				bodies[lineNumber++] = parse_line(buffer, conf);
 				col = 0;
+				memset(buffer, 0, LINE_LENGTH);
 			}
 		}
 	}
