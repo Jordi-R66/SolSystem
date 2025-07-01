@@ -8,7 +8,7 @@
 
 // Body parsing
 
-void parse_line(string* line, Body* body, SysConf* conf);
+Body parse_line(string* line, SysConf* conf);
 void print_body(Body* body);
 
 // ------------------------------------------------------------------

@@ -2,8 +2,11 @@
 
 #define EOS '\0'
 
-void parse_line(string* line, Body* body, SysConf* conf) {
-	SysConf* conf = body->sysConf;
+
+Body parse_line(string* line, SysConf* conf) {
+	Body body;
+
+	body.sysConf = conf;
 
 	char sep = ',';
 
@@ -120,29 +123,27 @@ void parse_line(string* line, Body* body, SysConf* conf) {
 
 	// Information saving
 
-	body->BodyId = body_id;
-	body->ParentId = parent_id;
-	strcpy(body->BodyName, BODY_NAME);
+	body.BodyId = body_id;
+	body.ParentId = parent_id;
+	strcpy(body.BodyName, BODY_NAME);
 
-	body->BodyMass = mass * powl(10.0l, conf->MassScale);
-	body->SemiMajorAxis = sma * conf->DistScale;
-	body->Eccentricity = ecc;
-	body->Inclination = inc;
-	body->AscNodeLong = an;
-	body->PeriLong = pl;
-	body->MeanLong = mn;
+	body.BodyMass = mass * powl(10.0l, conf->MassScale);
+	body.SemiMajorAxis = sma * conf->DistScale;
+	body.Eccentricity = ecc;
+	body.Inclination = inc;
+	body.AscNodeLong = an;
+	body.PeriLong = pl;
+	body.MeanLong = mn;
 
-	body->PeriArg = pl - an;
-	body->MeanAnomaly = NAN;
-	body->MeanMotion = NAN;
+	body.PeriArg = pl - an;
+	body.MeanAnomaly = NAN;
+	body.MeanMotion = NAN;
 
-	//printf("ID : %s\nName : %s\nParent : %s\n-------------------------------------------\nMass : %s * 10^24 kg\nSMA : %s AU\nECC : %s\nInclination : %s°\nAsc. Node : %s°\nPeri LNG : %s°\nMean LNG : %s°\n-------------------------------------------\n", BODY_ID, BODY_NAME, PARENT_ID, BODY_MASS, SEMI_MAJOR_AXIS, ECCENTRICITY, INCLINATION, AN, PERI_LONG, MEAN_LONG);
-
-	return;
+	return body;
 }
 
 void print_body(Body* body) {
-	printf("Body name : %s\n");
+	printf("Body name : %s\n", body->BodyName);
 
 	printf("---------------------------------- DATA ----------------------------------\n");
 
@@ -151,10 +152,10 @@ void print_body(Body* body) {
 
 	printf("\n");
 
-	printf("INCLINATION : %.4f degs\n", body->Inclination);
-	printf("LONGITUDE OF ASC. NODE : %.4f degs\n", body->AscNodeLong);
-	printf("ECCENTRICITY : %.7f\n", body->Eccentricity);
-	printf("ARG. OF PERIAPSIS : %.4f degs\n", body->PeriArg);
-	printf("MEAN ANOMALY : %.4f degs\n", body->MeanAnomaly);
-	printf("MEAN MOTION : %.8f rev/(sid. day)\n", body->MeanMotion);
+	printf("INCLINATION : %.4Lf degs\n", body->Inclination);
+	printf("LONGITUDE OF ASC. NODE : %.4Lf degs\n", body->AscNodeLong);
+	printf("ECCENTRICITY : %.7Lf\n", body->Eccentricity);
+	printf("ARG. OF PERIAPSIS : %.4Lf degs\n", body->PeriArg);
+	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
+	printf("MEAN MOTION : %.8Lf rev/(sid. day)\n", body->MeanMotion);
 }
