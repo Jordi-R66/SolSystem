@@ -1,15 +1,33 @@
+#pragma once
+
 #include "Common.h"
 
 #pragma pack(1)
-typedef struct Body {
+
+#define BODY_ID_LENGTH 5
+#define ID_BITS 8
+
+#define BODY_MASS_LENGTH 16
+
+#define SMA_LENGTH 31
+#define ECC_LENGTH 16
+#define INCLINATION_LENGTH 11
+#define LNG_LENGTH 11
+
+#define FIELDS 10
+
+#define LINE_LENGTH (NAME_LENGTH + 2 * BODY_ID_LENGTH + BODY_MASS_LENGTH + SMA_LENGTH + ECC_LENGTH + INCLINATION_LENGTH + 3 * LNG_LENGTH + 1)
+
+typedef struct BodyStruct {
 	SysConf* sysConf;
 	id_t BodyId;
+
+	bool hasParent;
 	id_t ParentId;
-	Body* ParentPTR;
+	void* ParentPTR;
 
 	string BodyName[NAME_LENGTH];
 
-	bool hasParent;
 
 	long double BodyMass;
 	long double stdGravParam;
@@ -26,7 +44,7 @@ typedef struct Body {
 	long double MeanMotion;
 
 	long double x, y, z;
-	long double v_x, v_y, v_z, v;
+	long double v_x, v_y, v_z;
 
 } Body;
 #pragma pack()
