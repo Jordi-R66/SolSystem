@@ -7,6 +7,8 @@
 
 time_t current_time;
 
+void program(SysConf conf, BodyFile bodyFile);
+
 int main(int argc, char* argv[]) {
 	SysConf conf;
 
@@ -39,7 +41,10 @@ int main(int argc, char* argv[]) {
 			}
 
 		case 3:
-			
+			conf = parseConfFile(argv[1]);
+			BodyFile bodyFile = parseBodiesFile(argv[2], &conf);
+
+			program(conf, bodyFile);
 
 		default:
 			fprintf(stderr, "Please specify a .bodies file followed by a .conf file. OR specify 'g' to generate default .conf and a template for your .bodies\n");
@@ -49,16 +54,14 @@ int main(int argc, char* argv[]) {
 		}
 }
 
-void program(SysConf conf, Body* bodies) {
+void program(SysConf conf, BodyFile bodyFile) {
 
-	char line[] = "1,Mercury,0,0.33010,0.38709893,0.20563069,7.00487,48.33167,77.45645,252.25084";
+	for (size_t i = 0; i < bodyFile.numberOfBodies; i++) {
+		print_body(&bodyFile.bodies[i]);
+		printf("\n\n");
+	}
 
-	Body Mercure;
+	free(bodyFile.bodies);
 
-	strcpy(conf.SysName, "Sol");
-
-	Mercure = parse_line(line, &conf);
-	print_body(&Mercure);
-
-	return;
+	exit(EXIT_SUCCESS);
 }
