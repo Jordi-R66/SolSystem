@@ -25,10 +25,8 @@ typedef uint8_t bodyId_t;
 
 typedef struct SysConf_Struct {
 	string SysName[NAME_LENGTH];
-	long double MassScale;
 	long double DistScale;
 	long double Epoch_TT;
-	bool HeaderLine;
 } SysConf;
 
 #pragma pack()

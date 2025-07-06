@@ -68,6 +68,6 @@ typedef struct BodyStruct {
 
 #define BODY_SIZE sizeof(Body)
 
-Body complexifyBody(SimplifiedBody simpleBody, SysConf* SysConf);
+Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf);
 
 void print_body(Body* body);

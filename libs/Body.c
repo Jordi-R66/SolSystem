@@ -1,11 +1,11 @@
 #include "Body.h"
 
-Body complexifyBody(SimplifiedBody simpleBody, SysConf* SysConf) {
+Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf) {
 	Body final;
 
 	memset(&final, 0, BODY_SIZE);
 
-	final.sysConf = SysConf;
+	final.sysConf = sysConf;
 	final.BodyId = simpleBody.bodyId;
 	final.hasParent = simpleBody.hasParent;
 	final.ParentId = simpleBody.parentId;
@@ -15,7 +15,7 @@ Body complexifyBody(SimplifiedBody simpleBody, SysConf* SysConf) {
 	final.BodyMass = simpleBody.Mass;
 	final.stdGravParam = final.BodyMass * G;
 
-	final.SemiMajorAxis = simpleBody.SMA;
+	final.SemiMajorAxis = simpleBody.SMA * sysConf->DistScale;
 	final.Eccentricity = simpleBody.Eccentricity;
 	final.Inclination = simpleBody.Inclination;
 	final.AscNodeLong = simpleBody.AscNode;
