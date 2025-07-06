@@ -36,6 +36,15 @@ int main(int argc, char* argv[]) {
 	printf("%d arguments detected\n", argc);
 
 	switch (argc) {
+		case 1:
+			bodyFile.numberOfBodies = 10;
+			bodyFile.bodies = (Body*)calloc(10, BODY_SIZE);
+
+			for (size_t i = 0; i < 10; i++) {
+				bodyFile.bodies[i] = complexifyBody(solBodies[i], &conf);
+			}
+
+			program(conf, bodyFile);
 		case 2:
 			switch (argv[1][0]) {
 				case 'g':
