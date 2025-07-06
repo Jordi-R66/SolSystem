@@ -14,49 +14,55 @@ SysConf parseConfFile(string* filename) {
 }
 
 BodyFile parseBodiesFile(string* filename, SysConf* conf) {
-	char buffer[LINE_LENGTH];
-	memset(buffer, 0, LINE_LENGTH);
-
-	char c = 0;
-	bodyId_t lineNumber = 0;
-	size_t col = 0;
-
-	Body* bodies = (Body*)calloc(DEFAULT_BODY_NUMBER, BODY_SIZE);
-	size_t capacity = DEFAULT_BODY_NUMBER;
-
 	FILE* fp = fopen(filename, "r");
 
-	while (c != EOF) {
-		c = fgetc(fp);
-
-		if (c != '\n' && c != EOF) {
-			buffer[col++] = c;
-		} else {
-			if (col != 0 && !(conf->HeaderLine && (lineNumber == 0))) {
-				if (lineNumber == (capacity - 1)) {
-					capacity += DEFAULT_BODY_NUMBER;
-					bodies = realloc(bodies, capacity * BODY_SIZE);
-				} else if (lineNumber <= 0 && capacity > DEFAULT_BODY_NUMBER) {
-					free(bodies);
-					exit(EXIT_FAILURE);
-				}
-
-				bodies[lineNumber++] = parse_line(buffer, conf);
-				col = 0;
-				memset(buffer, 0, LINE_LENGTH);
-			}
-		}
+	if (fp == NULL) {
+		fprintf(stderr, "Couldn't open %s in read-only mode\n", filename);
+		exit(EXIT_FAILURE);
 	}
+
+	long pos = 0;
+
+	fseek(fp, 0, SEEK_END);
+	pos = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+
+	size_t nBodies = pos / SIMPLIFIED_BODY_SIZE;
+
+	void* tempPtr = calloc(nBodies, SIMPLIFIED_BODY_SIZE);
+	SimplifiedBody* simplifiedBodies = (SimplifiedBody*)tempPtr;
+
+	if (tempPtr == NULL) {
+		fprintf(stderr, "Couldn't prepare to parse %s\n", filename);
+		exit(EXIT_FAILURE);
+	}
+
+	fread(simplifiedBodies, SIMPLIFIED_BODY_SIZE, nBodies, fp);
+	tempPtr = calloc(nBodies, BODY_SIZE);
 
 	fclose(fp);
 
-	bodies = realloc(bodies, capacity * BODY_SIZE);
+	if (tempPtr == NULL) {
+		fprintf(stderr, "Couldn't initiate the intermediate conversion process\n");
+		exit(EXIT_FAILURE);
+	}
 
-	return (BodyFile){lineNumber, bodies};
+	BodyFile output;
+
+	output.numberOfBodies = nBodies;
+	output.bodies = (Body*)tempPtr;
+
+	for (size_t i = 0; i < nBodies; i++) {
+		SimplifiedBody body = simplifiedBodies[i];
+
+		output.bodies[i] = complexifyBody(body, conf);
+	}
+
+	return output;
 }
 
 Body parse_line(string* line, SysConf* conf) {
-	Body body;
+	/*Body body;
 
 	body.sysConf = conf;
 
@@ -192,5 +198,5 @@ Body parse_line(string* line, SysConf* conf) {
 	body.MeanAnomaly = NAN;
 	body.MeanMotion = NAN;
 
-	return body;
+	return body;*/
 }
