@@ -1,5 +1,30 @@
 #include "Body.h"
 
+Body complexifyBody(SimplifiedBody simpleBody, SysConf* SysConf) {
+	Body final;
+
+	memset(&final, 0, BODY_SIZE);
+
+	final.sysConf = SysConf;
+	final.BodyId = simpleBody.bodyId;
+	final.hasParent = simpleBody.hasParent;
+	final.ParentId = simpleBody.parentId;
+
+	memcpy(final.BodyName, simpleBody.BodyName, NAME_LENGTH);
+
+	final.BodyMass = simpleBody.Mass;
+	final.stdGravParam = final.BodyMass * G;
+
+	final.SemiMajorAxis = simpleBody.SMA;
+	final.Eccentricity = simpleBody.Eccentricity;
+	final.Inclination = simpleBody.Inclination;
+	final.AscNodeLong = simpleBody.AscNode;
+	final.PeriLong = simpleBody.PeLNG;
+	final.MeanLong = simpleBody.MeanLNG;
+
+	return final;
+}
+
 void print_body(Body* body) {
 	printf("Body name : %s\n", body->BodyName);
 
