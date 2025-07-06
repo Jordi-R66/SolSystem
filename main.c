@@ -11,11 +11,14 @@ void program(SysConf conf, BodyFile bodyFile);
 
 int main(int argc, char* argv[]) {
 	SysConf conf;
+	BodyFile bodyFile;
 
 	conf.MassScale = 1e25L;
 	conf.DistScale = 149597870700.0L;
 	conf.Epoch_TT = 2451545.0L;
 	conf.HeaderLine = true;
+
+	printf("%d arguments detected\n", argc);
 
 	switch (argc) {
 		case 2:
@@ -41,8 +44,13 @@ int main(int argc, char* argv[]) {
 			}
 
 		case 3:
+
+			printf("Conf file : %s\nBodies file : %s\n", argv[1], argv[2]);
+
 			conf = parseConfFile(argv[1]);
-			BodyFile bodyFile = parseBodiesFile(argv[2], &conf);
+			bodyFile = parseBodiesFile(argv[2], &conf);
+
+			printf("Everything has been loaded into memory!!\n");
 
 			program(conf, bodyFile);
 
@@ -55,6 +63,8 @@ int main(int argc, char* argv[]) {
 }
 
 void program(SysConf conf, BodyFile bodyFile) {
+
+	printf("Main part of the program is running!\n");
 
 	for (size_t i = 0; i < bodyFile.numberOfBodies; i++) {
 		print_body(&bodyFile.bodies[i]);
