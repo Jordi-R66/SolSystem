@@ -29,4 +29,6 @@ typedef struct SysConf_Struct {
 	long double Epoch_TT;
 } SysConf;
 
+#define CONF_SIZE sizeof(SysConf)
+
 #pragma pack()
