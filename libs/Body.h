@@ -18,6 +18,24 @@
 
 #define LINE_LENGTH (NAME_LENGTH + 2 * BODY_ID_LENGTH + BODY_MASS_LENGTH + SMA_LENGTH + ECC_LENGTH + INCLINATION_LENGTH + 3 * LNG_LENGTH + 1)
 
+typedef struct SimplifiedBody {
+	bodyId_t bodyId;
+	string BodyName[NAME_LENGTH];
+
+	bool hasParent;
+	bodyId_t parentId;
+
+	long double Mass;
+	long double SMA;
+	long double Eccentricity;
+	long double Inclination;
+	long double AscNode;
+	long double PeLNG;
+	long double MeanLNG;
+} SimplifiedBody;
+
+#define SIMPLIFIED_BODY_SIZE sizeof(SimplifiedBody)
+
 typedef struct BodyStruct {
 	SysConf* sysConf;
 	bodyId_t BodyId;
@@ -27,7 +45,6 @@ typedef struct BodyStruct {
 	void* ParentPTR;
 
 	string BodyName[NAME_LENGTH];
-
 
 	long double BodyMass;
 	long double stdGravParam;
