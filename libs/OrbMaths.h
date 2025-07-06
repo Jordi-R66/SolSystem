@@ -5,8 +5,6 @@
 
 //#define EARTH_DAY_LENGTH 86400.0//86164.096
 
-#define G 6.67428E-11l
-
 long double OrbitalPeriod(Body* body);
 
 long double Apoapsis(Body* body);

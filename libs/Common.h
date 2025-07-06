@@ -9,6 +9,8 @@
 #include <math.h>
 #include <sys/types.h>
 
+#define G 6.67428E-11L
+
 #define M_PIl 3.141592653589793238462643383279502884L
 
 #define DEGS2RADS M_PIl/180.0l
@@ -17,7 +19,7 @@
 #define NAME_LENGTH 26
 
 typedef char string;
-typedef int8_t bodyId_t;
+typedef uint8_t bodyId_t;
 
 #pragma pack(1)
 
