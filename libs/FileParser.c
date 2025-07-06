@@ -64,7 +64,7 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 Body parse_line(string* line, SysConf* conf) {
 	Body body;
 
-	body.sysConf = conf;
+	/*body.sysConf = conf;
 
 	char sep = ',';
 
@@ -196,7 +196,7 @@ Body parse_line(string* line, SysConf* conf) {
 
 	body.PeriArg = pl - an;
 	body.MeanAnomaly = NAN;
-	body.MeanMotion = NAN;
+	body.MeanMotion = NAN;*/
 
 	return body;
 }
