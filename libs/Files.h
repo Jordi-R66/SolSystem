@@ -3,4 +3,4 @@
 #include "Body.h"
 #include "Common.h"
 
-void ExportBodies(BodyFile* bodyFile, SysConf* sysConf);
+void ExportSimplifiedBodies(SimplifiedBody* bodies, size_t numberOfBodies, SysConf* sysConf);
