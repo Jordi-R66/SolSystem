@@ -8,7 +8,10 @@
             "defines": ["__USE_GNU"],
             "intelliSenseMode": "linux-gcc-x64",
             "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu17"
+            "cStandard": "gnu17",
+            "compilerArgs": [
+                "-mlong-double-128"
+            ]
         }
     ],
     "version": 4
