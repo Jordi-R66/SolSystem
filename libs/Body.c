@@ -68,7 +68,7 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 		SimplifiedBody* simpleBody = &simpleBodies[i];
 
 		bodyArray[i] = complexifyBody(*simpleBody, sysConf);
-		kvpArray[i] = simpleBody;
+		kvpArray[i] = &bodyArray[i];
 	}
 
 	for (size_t i = 0; i < 10; i++) {
