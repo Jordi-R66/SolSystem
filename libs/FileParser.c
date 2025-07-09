@@ -50,13 +50,7 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 	BodyFile output;
 
 	output.numberOfBodies = nBodies;
-	output.bodies = (Body*)tempPtr;
-
-	for (size_t i = 0; i < nBodies; i++) {
-		SimplifiedBody body = simplifiedBodies[i];
-
-		output.bodies[i] = complexifyBody(body, conf);
-	}
+	output.bodies = complexifyBodies(simplifiedBodies, nBodies, conf);
 
 	return output;
 }
