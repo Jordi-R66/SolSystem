@@ -9,9 +9,7 @@
             "intelliSenseMode": "linux-gcc-x64",
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu17",
-            "compilerArgs": [
-                "-mlong-double-128"
-            ]
+            "compilerArgs": []
         }
     ],
     "version": 4
