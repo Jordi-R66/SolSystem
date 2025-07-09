@@ -27,8 +27,6 @@ Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf) {
 	final.PeriArg = final.PeriLong - final.AscNodeLong;
 	final.MeanAnomaly = final.MeanLong - final.PeriLong;
 
-	final.OrbPeriod = OrbitalPeriod(&final);
-
 	return final;
 }
 
@@ -74,10 +72,14 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 	for (size_t i = 0; i < 10; i++) {
 		if (bodyArray[i].hasParent) {
 			bodyArray[i].ParentPTR = (void*)kvpArray[bodyArray->ParentId];
+
+			bodyArray[i].OrbPeriod = OrbitalPeriod(&bodyArray[i]);
 		}
 	}
 
-	return NULL;
+	free(kvpArray);
+
+	return bodyArray;
 }
 
 void print_body(Body* body) {
