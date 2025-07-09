@@ -38,11 +38,7 @@ int main(int argc, char* argv[]) {
 	switch (argc) {
 		case 1:
 			bodyFile.numberOfBodies = 10;
-			bodyFile.bodies = (Body*)calloc(10, BODY_SIZE);
-
-			for (size_t i = 0; i < 10; i++) {
-				bodyFile.bodies[i] = complexifyBody(solBodies[i], &conf);
-			}
+			bodyFile.bodies = complexifyBodies(solBodies, 10, &conf);
 
 			program(conf, bodyFile);
 		case 2:
@@ -53,9 +49,7 @@ int main(int argc, char* argv[]) {
 					fwrite((void*)&conf, sizeof(SysConf), 1, fp);
 					fclose(fp);
 
-					fp = fopen("empty.bodies", "w");
-					fprintf(fp, "BodyId,BodyName,BodyParent,Mass,SMA,Ecc,Incl,LNA,PeLNG,MeanLNG\n");
-					fclose(fp);
+					ExportSimplifiedBodies(solBodies, 10, &conf);
 
 					fprintf(stdout, "Generated all required files.\n");
 					exit(EXIT_SUCCESS);
