@@ -16,7 +16,7 @@
 
 #define FIELDS 10
 
-#define LINE_LENGTH (NAME_LENGTH + 2 * BODY_ID_LENGTH + BODY_MASS_LENGTH + SMA_LENGTH + ECC_LENGTH + INCLINATION_LENGTH + 3 * LNG_LENGTH + 1)
+//#define LINE_LENGTH (NAME_LENGTH + 2 * BODY_ID_LENGTH + BODY_MASS_LENGTH + SMA_LENGTH + ECC_LENGTH + INCLINATION_LENGTH + 3 * LNG_LENGTH + 1)
 
 typedef struct SimplifiedBody {
 	bodyId_t bodyId;
@@ -64,6 +64,12 @@ typedef struct BodyStruct {
 	long double v_x, v_y, v_z;
 
 } Body;
+
+typedef struct {
+	bodyId_t id;
+	Body* bodyPtr;
+} matchingPtr;
+
 #pragma pack()
 
 #define BODY_SIZE sizeof(Body)
