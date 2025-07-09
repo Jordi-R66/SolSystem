@@ -65,15 +65,11 @@ typedef struct BodyStruct {
 
 } Body;
 
-typedef struct {
-	bodyId_t id;
-	Body* bodyPtr;
-} matchingPtr;
-
 #pragma pack()
 
 #define BODY_SIZE sizeof(Body)
 
 Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf);
+Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysConf* sysConf);
 
 void print_body(Body* body);

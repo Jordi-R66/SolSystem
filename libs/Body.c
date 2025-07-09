@@ -1,5 +1,7 @@
 #include "Body.h"
 
+#include "OrbMaths.h"
+
 Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf) {
 	Body final;
 
@@ -28,6 +30,54 @@ Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf) {
 	final.OrbPeriod = OrbitalPeriod(&final);
 
 	return final;
+}
+
+Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysConf* sysConf) {
+	void* tempBodies = calloc(numberOfBody, BODY_SIZE);
+	void* tempKVP = calloc(numberOfBody, sizeof(Body*));
+
+	bool failure = (tempBodies == NULL) || (tempKVP == NULL);
+	uint8_t failureCount = 0;
+
+	if (tempBodies == NULL) {
+		fprintf(stderr, "Couldn't attribute enough memory for %zu bodies.\n", numberOfBody);
+		failureCount++;
+	}
+
+	if (tempKVP == NULL) {
+		fprintf(stderr, "Couldn't attribute enough memory to a kvp array for %zu bodies.\n", numberOfBody);
+		failureCount++;
+	}
+
+	if (failure) {
+		if (failureCount == 1) {
+			if (tempBodies != NULL) {
+				free(tempBodies);
+			} else {
+				free(tempKVP);
+			}
+		}
+
+		exit(EXIT_FAILURE);
+	}
+
+	Body* bodyArray = (Body*)tempBodies;
+	Body** kvpArray = (Body**)tempKVP;
+
+	for (size_t i = 0; i < 10; i++) {
+		SimplifiedBody* simpleBody = &simpleBodies[i];
+
+		bodyArray[i] = complexifyBody(*simpleBody, sysConf);
+		kvpArray[i] = simpleBody;
+	}
+
+	for (size_t i = 0; i < 10; i++) {
+		if (bodyArray[i].hasParent) {
+			bodyArray[i].ParentPTR = (void*)kvpArray[bodyArray->ParentId];
+		}
+	}
+
+	return NULL;
 }
 
 void print_body(Body* body) {
