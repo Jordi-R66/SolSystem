@@ -22,6 +22,11 @@ Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf) {
 	final.PeriLong = simpleBody.PeLNG;
 	final.MeanLong = simpleBody.MeanLNG;
 
+	final.PeriArg = final.PeriLong - final.AscNodeLong;
+	final.MeanAnomaly = final.MeanLong - final.PeriLong;
+
+	final.OrbPeriod = OrbitalPeriod(&final);
+
 	return final;
 }
 

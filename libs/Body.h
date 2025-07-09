@@ -58,7 +58,7 @@ typedef struct BodyStruct {
 
 	long double PeriArg;
 	long double MeanAnomaly;
-	long double MeanMotion;
+	long double OrbPeriod;
 
 	long double x, y, z;
 	long double v_x, v_y, v_z;
