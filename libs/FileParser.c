@@ -38,19 +38,18 @@ BodyFile parseBodiesFile(string* filename, SysConf* conf) {
 	}
 
 	fread(simplifiedBodies, SIMPLIFIED_BODY_SIZE, nBodies, fp);
-	tempPtr = calloc(nBodies, BODY_SIZE);
 
 	fclose(fp);
-
-	if (tempPtr == NULL) {
-		fprintf(stderr, "Couldn't initiate the intermediate conversion process\n");
-		exit(EXIT_FAILURE);
-	}
 
 	BodyFile output;
 
 	output.numberOfBodies = nBodies;
 	output.bodies = complexifyBodies(simplifiedBodies, nBodies, conf);
+
+	free((void*)simplifiedBodies);
+
+	simplifiedBodies = (SimplifiedBody*)NULL;
+	tempPtr = NULL;
 
 	return output;
 }
