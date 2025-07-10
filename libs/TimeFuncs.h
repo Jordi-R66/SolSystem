@@ -2,5 +2,10 @@
 
 #include "Common.h"
 
+#define UTC_TAI_LEAP_SECONDS	37		// 37 leap seconds have to be applied
+#define TAI_TT_DELTA			32.184L	// Difference between TAI and TT
+
+typedef struct tm TimeStruct;
+
 long double CurrentEpoch(long double relativeToJJ);
-long double JulianDay(uint32_t Y, uint32_t M, uint32_t D, uint32_t h, uint32_t m, uint32_t s);
+time_t JulianDayToTimestamp(long double JJ);
