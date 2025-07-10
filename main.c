@@ -39,8 +39,8 @@ int main(int argc, char* argv[]) {
 
 	switch (argc) {
 		case 1:
-			bodyFile.numberOfBodies = 11;
-			bodyFile.bodies = complexifyBodies(solBodies, 11, &conf);
+			bodyFile.numberOfBodies = sizeof(solBodies)/sizeof(SimplifiedBody);
+			bodyFile.bodies = complexifyBodies(solBodies, bodyFile.numberOfBodies, &conf);
 
 			program(conf, bodyFile);
 		case 2:
