@@ -50,7 +50,7 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 		if (bodyArray[i].hasParent) {
 			bodyArray[i].ParentPTR = &bodyArray[bodyArray[i].ParentId];
 
-			bodyArray[i].OrbPeriod = OrbitalPeriod(&bodyArray[i]);
+			bodyArray[i].MeanMotion = 2.0l * M_PIl / OrbitalPeriod(&bodyArray[i]);
 		}
 	}
 
@@ -72,5 +72,5 @@ void print_body(Body* body) {
 	printf("ECCENTRICITY : %.7Lf\n", body->Eccentricity);
 	printf("ARG. OF PERIAPSIS : %.4Lf degs\n", body->PeriArg);
 	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
-	printf("ORBITAL PERIOD : %.8Lf seconds\n", body->OrbPeriod);
+	printf("ORBITAL PERIOD : %.8Lf seconds\n", 2.0l * M_PIl / body->MeanMotion);
 }
