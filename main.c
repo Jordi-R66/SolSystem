@@ -84,13 +84,13 @@ int main(int argc, char* argv[]) {
 
 void program(SysConf conf, BodyFile bodyFile) {
 
-	printf("Main part of the program is running!\nEpoch : %LF\nCurrent Julian Day : %LF\n", conf.Epoch_TT, CurrentEpoch(conf.Epoch_TT));
+	printf("Main part of the program is running!\nEpoch : %LF\n", conf.Epoch_TT);
 
 	time_t epoch = JulianDayToTimestamp(conf.Epoch_TT);
 
 	for (size_t i = 0; i < bodyFile.numberOfBodies; i++) {
-		//print_body(&bodyFile.bodies[i]);
-		//printf("\n\n");
+		print_body(&bodyFile.bodies[i]);
+		printf("\n\n");
 	}
 
 	free(bodyFile.bodies);
