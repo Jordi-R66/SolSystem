@@ -40,13 +40,13 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 
 	Body* bodyArray = (Body*)tempBodies;
 
-	for (size_t i = 0; i < 10; i++) {
+	for (size_t i = 0; i < numberOfBody; i++) {
 		SimplifiedBody* simpleBody = &simpleBodies[i];
 
 		bodyArray[i] = complexifyBody(*simpleBody, sysConf);
 	}
 
-	for (size_t i = 0; i < 10; i++) {
+	for (size_t i = 0; i < numberOfBody; i++) {
 		if (bodyArray[i].hasParent) {
 			bodyArray[i].ParentPTR = &bodyArray[bodyArray[i].ParentId];
 
