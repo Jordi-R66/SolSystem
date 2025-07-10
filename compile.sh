@@ -2,7 +2,7 @@
 clear
 COMPILER="gcc"
 
-SOURCES="libs/OrbMaths.c libs/FileParser.c libs/CONVERSIONS.c libs/Algos.c libs/Body.c libs/TermFuncs.c libs/Files.c main.c"
+SOURCES="libs/OrbMaths.c libs/FileParser.c libs/CONVERSIONS.c libs/Algos.c libs/Body.c libs/TermFuncs.c libs/TimeFuncs.c libs/Files.c main.c"
 
 OUTPUT_DIR="output"
 

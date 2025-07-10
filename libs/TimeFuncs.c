@@ -1,6 +1,6 @@
 #include "TimeFuncs.h"
 
-double CurrentEpoch() {
+long double CurrentEpoch(long double relativeToJJ) {
 	time_t current_time = time(NULL);
 
 	struct tm* utc = gmtime(&current_time);
@@ -14,24 +14,29 @@ double CurrentEpoch() {
 
 	// printf("YEAR : %u\nMONTH : %u\n", Y, M);
 
-	double Epoch = JulianDay(Y, M, D, h, m, s);
+	long double Epoch = JulianDay(Y, M, D, h, m, s);
+
+	if (relativeToJJ != 0) {
+		Epoch -= relativeToJJ;
+	}
+
 	return Epoch;
 }
 
-double JulianDay(uint32_t Y, uint32_t M, uint32_t D, uint32_t h, uint32_t m, uint32_t s) {
-	double Q = (double)D + ((double)((h-12+12)*3600 + m*60 + s))/86400.0;
+long double JulianDay(uint32_t Y, uint32_t M, uint32_t D, uint32_t h, uint32_t m, uint32_t s) {
+	long double Q = (long double)D + ((long double)((h - 12) * 3600 + m * 60 + s)) / 86400.0l;
 
-	double JJ;
+	long double JJ;
 
 	if (M <= 2) {
 		Y--;
 		M += 12;
 	}
 
-	uint8_t S = Y/100;
-	uint8_t B = 2 - S + S/4;
+	int S = Y / 100;
+	int B = 2 - S + S / 4;
 
-	JJ = (uint32_t)(365.25 * Y) + (uint32_t)(30.6001*(M+1)) + Q + B + 1720994.5;
+	JJ = (365.25l * Y) + (30.6001l * (long double)(M + 1)) + Q + (long double)B + 1720994.5l + .5l;
 
 	return JJ;
 }
