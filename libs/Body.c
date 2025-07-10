@@ -72,5 +72,5 @@ void print_body(Body* body) {
 	printf("ECCENTRICITY : %.7Lf\n", body->Eccentricity);
 	printf("ARG. OF PERIAPSIS : %.4Lf degs\n", body->PeriArg);
 	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
-	printf("ORBITAL PERIOD : %.8Lf seconds\n", 2.0l * M_PIl / body->MeanMotion);
+	printf("ORBITAL PERIOD : %.4Lf seconds\n", 2.0l * M_PIl / body->MeanMotion);
 }
