@@ -7,5 +7,4 @@
 
 typedef struct tm TimeStruct;
 
-long double CurrentEpoch(long double relativeToJJ);
 time_t JulianDayToTimestamp(long double JJ);
