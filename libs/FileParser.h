@@ -15,7 +15,6 @@ typedef struct BodyFile {
 	Body* bodies;
 } BodyFile;
 
-Body parse_line(string* line, SysConf* conf);
 BodyFile parseBodiesFile(string* filename, SysConf* conf);
 
 // ------------------------------------------------------------------
