@@ -73,6 +73,8 @@ void print_body(Body* body, bool simplifyUnits) {
 	char timeUnitChar = simplifyUnits ? 'd' : 's';
 	char distUnitChar = simplifyUnits ? 'U' : 'm';
 
+	long double SOI_RANGE = (body->sphereOfInfluence - SphereOfInfluence(body, body->Peri)) * distCoeff;
+
 	printf("Body name : %s\n", body->BodyName);
 
 	printf("---------------------------------- DATA ----------------------------------\n");
@@ -89,11 +91,9 @@ void print_body(Body* body, bool simplifyUnits) {
 	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
 	printf("ORBITAL PERIOD : %.4Lf %c\n", 2.0l * M_PIl / body->MeanMotion * timeCoeff, timeUnitChar);
 
-	printf("SEMI MAJOR AXIS : %.4Lf %c\n", body->SemiMajorAxis * distCoeff, distUnitChar);
-	printf("APOAPSIS : %.4Lf %c\n", body->Apo * distCoeff, distUnitChar);
-	printf("PERIAPSIS : %.4Lf %c\n", body->Peri * distCoeff, distUnitChar);
+	printf("SMA : %.4Lf %c\t\t", body->SemiMajorAxis * distCoeff, distUnitChar);
+	printf("APO : %.4Lf %c\t\t\t", body->Apo * distCoeff, distUnitChar);
+	printf("PERI : %.4Lf %c\n", body->Peri * distCoeff, distUnitChar);
 
-	printf("SOI (SMA): %.4Lf %c\n", body->sphereOfInfluence * distCoeff, distUnitChar);
-	printf("SOI (Apoapsis): %.4Lf %c\n", SphereOfInfluence(body, body->Apo) * distCoeff, distUnitChar);
-	printf("SOI (Periapsis): %.4Lf %c\n", SphereOfInfluence(body, body->Peri) * distCoeff, distUnitChar);
+	printf("SOI : %.4Lf +/- %.4Lf %c\n", body->sphereOfInfluence * distCoeff, SOI_RANGE, distUnitChar);
 }
