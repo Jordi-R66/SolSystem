@@ -53,7 +53,7 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 		if (bodyPtr->hasParent) {
 			bodyPtr->ParentPTR = &bodyArray[bodyPtr->ParentId];
 
-			bodyPtr->MeanMotion = 2.0l * M_PIl / OrbitalPeriod(bodyPtr);
+			bodyPtr->MeanMotion = AngularSpeed(bodyPtr);
 
 			bodyPtr->Apo = bodyPtr->SemiMajorAxis * (1.0l + bodyPtr->Eccentricity);
 			bodyPtr->Peri = bodyPtr->SemiMajorAxis * (1.0l - bodyPtr->Eccentricity);
