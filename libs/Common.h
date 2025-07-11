@@ -26,7 +26,7 @@ typedef uint8_t bodyId_t;
 typedef struct SysConf_Struct {
 	string SysName[NAME_LENGTH];
 	long double DistScale;
-	long double Epoch_TT;
+	double Epoch_TT;
 } SysConf;
 
 #define CONF_SIZE sizeof(SysConf)

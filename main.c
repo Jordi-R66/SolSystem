@@ -12,7 +12,7 @@ time_t current_time;
 SysConf solConf = {
 	.SysName = "Sol",
 	.DistScale = 149597870700.0L,
-	.Epoch_TT = 2451545.0L
+	.Epoch_TT = 2451545.0
 };
 
 SimplifiedBody solBodies[] = {
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
 
 void program(SysConf conf, BodyFile bodyFile) {
 
-	printf("Main part of the program is running!\nEpoch : %LF\n", conf.Epoch_TT);
+	printf("Main part of the program is running!\nEpoch : %F\n", conf.Epoch_TT);
 
 	time_t epoch = JulianDayToTimestamp(conf.Epoch_TT);
 
