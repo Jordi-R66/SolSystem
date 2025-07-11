@@ -89,7 +89,7 @@ void program(SysConf conf, BodyFile bodyFile) {
 	time_t epoch = JulianDayToTimestamp(conf.Epoch_TT);
 
 	for (size_t i = 0; i < bodyFile.numberOfBodies; i++) {
-		print_body(&bodyFile.bodies[i]);
+		print_body(&bodyFile.bodies[i], true);
 		printf("\n\n");
 	}
 
