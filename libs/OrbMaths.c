@@ -85,3 +85,15 @@ long double Lorentz(long double v) {
 
 	return 1.0l / sqrtl(1.0l - powl(v, 2.0l)/c_sqr);
 }
+
+long double SphereOfInfluence(Body* body, long double dist) {
+	if (!body->hasParent) {
+		return INFINITY;
+	}
+
+	if (dist == 0.0l) {
+		dist = body->SemiMajorAxis;
+	}
+
+	return dist * powl(body->BodyMass / body->ParentPTR->BodyMass, 0.4l);
+}

@@ -21,3 +21,5 @@ long double MeanLongitude(long double MeanAno, long double LNA, long double ArgP
 
 long double OrbSpeed(Body* body, long double altitude);
 long double Lorentz(long double v);
+
+long double SphereOfInfluence(Body* body, long double dist);
