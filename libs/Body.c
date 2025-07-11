@@ -65,7 +65,10 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 void print_body(Body* body, bool simplifyUnits) {
 
 	long double distCoeff = simplifyUnits ? 1.0l / body->sysConf->DistScale : 1.0l;
-	char unitChar = simplifyUnits ? 'U' : 'm';
+	long double timeCoeff = simplifyUnits ? 1.0l / 86400.0l : 1.0l;
+
+	char timeUnitChar = simplifyUnits ? 'd' : 's';
+	char distUnitChar = simplifyUnits ? 'U' : 'm';
 
 	printf("Body name : %s\n", body->BodyName);
 
@@ -81,9 +84,9 @@ void print_body(Body* body, bool simplifyUnits) {
 	printf("ECCENTRICITY : %.7Lf\n", body->Eccentricity);
 	printf("ARG. OF PERIAPSIS : %.4Lf degs\n", body->PeriArg);
 	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
-	printf("ORBITAL PERIOD : %.4Lf seconds\n", 2.0l * M_PIl / body->MeanMotion);
+	printf("ORBITAL PERIOD : %.4Lf %c\n", 2.0l * M_PIl / body->MeanMotion * timeCoeff, timeUnitChar);
 
-	printf("SEMI MAJOR AXIS : %.4Lf %c\n", body->SemiMajorAxis * distCoeff, unitChar);
-	printf("APOAPSIS : %.4Lf %c\n", body->Apo * distCoeff, unitChar);
-	printf("PERIAPSIS : %.4Lf %c\n", body->Peri * distCoeff, unitChar);
+	printf("SEMI MAJOR AXIS : %.4Lf %c\n", body->SemiMajorAxis * distCoeff, distUnitChar);
+	printf("APOAPSIS : %.4Lf %c\n", body->Apo * distCoeff, distUnitChar);
+	printf("PERIAPSIS : %.4Lf %c\n", body->Peri * distCoeff, distUnitChar);
 }
