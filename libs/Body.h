@@ -74,4 +74,4 @@ typedef struct BodyStruct {
 Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf);
 Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysConf* sysConf);
 
-void print_body(Body* body, bool simplifyRadii);
+void print_body(Body* body, bool simplifyUnits);

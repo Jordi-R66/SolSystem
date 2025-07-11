@@ -62,10 +62,10 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 	return bodyArray;
 }
 
-void print_body(Body* body, bool simplifyRadii) {
+void print_body(Body* body, bool simplifyUnits) {
 
-	long double distCoeff = simplifyRadii ? 1.0l / body->sysConf->DistScale : 1.0l;
-	char unitChar = simplifyRadii ? 'U' : 'm';
+	long double distCoeff = simplifyUnits ? 1.0l / body->sysConf->DistScale : 1.0l;
+	char unitChar = simplifyUnits ? 'U' : 'm';
 
 	printf("Body name : %s\n", body->BodyName);
 
