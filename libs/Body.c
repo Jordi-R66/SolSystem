@@ -93,5 +93,7 @@ void print_body(Body* body, bool simplifyUnits) {
 	printf("APOAPSIS : %.4Lf %c\n", body->Apo * distCoeff, distUnitChar);
 	printf("PERIAPSIS : %.4Lf %c\n", body->Peri * distCoeff, distUnitChar);
 
-	printf("SOI : %.4Lf m\n", body->sphereOfInfluence * distCoeff);
+	printf("SOI (SMA): %.4Lf %c\n", body->sphereOfInfluence * distCoeff, distUnitChar);
+	printf("SOI (Apoapsis): %.4Lf %c\n", SphereOfInfluence(body, body->Apo) * distCoeff, distUnitChar);
+	printf("SOI (Periapsis): %.4Lf %c\n", SphereOfInfluence(body, body->Peri) * distCoeff, distUnitChar);
 }
