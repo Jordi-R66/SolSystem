@@ -39,6 +39,7 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 	}
 
 	Body* bodyArray = (Body*)tempBodies;
+	Body* bodyPtr;
 
 	for (size_t i = 0; i < numberOfBody; i++) {
 		SimplifiedBody* simpleBody = &simpleBodies[i];
@@ -47,17 +48,24 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 	}
 
 	for (size_t i = 0; i < numberOfBody; i++) {
-		if (bodyArray[i].hasParent) {
-			bodyArray[i].ParentPTR = &bodyArray[bodyArray[i].ParentId];
+		bodyPtr = &bodyArray[i];
+		if (bodyPtr->hasParent) {
+			bodyPtr->ParentPTR = &bodyArray[bodyPtr->ParentId];
 
-			bodyArray[i].MeanMotion = 2.0l * M_PIl / OrbitalPeriod(&bodyArray[i]);
+			bodyPtr->MeanMotion = 2.0l * M_PIl / OrbitalPeriod(bodyPtr);
+
+			bodyPtr->Apo = bodyPtr->SemiMajorAxis * (1.0l + bodyPtr->Eccentricity);
+			bodyPtr->Peri = bodyPtr->SemiMajorAxis * (1.0l - bodyPtr->Eccentricity);
 		}
 	}
 
 	return bodyArray;
 }
 
-void print_body(Body* body) {
+void print_body(Body* body, bool simplifyRadii) {
+
+	long double distCoeff = simplifyRadii ? 1.0l / body->sysConf->DistScale : 1.0l;
+
 	printf("Body name : %s\n", body->BodyName);
 
 	printf("---------------------------------- DATA ----------------------------------\n");
@@ -73,4 +81,8 @@ void print_body(Body* body) {
 	printf("ARG. OF PERIAPSIS : %.4Lf degs\n", body->PeriArg);
 	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
 	printf("ORBITAL PERIOD : %.4Lf seconds\n", 2.0l * M_PIl / body->MeanMotion);
+
+	printf("SEMI MAJOR AXIS : %.4Lf m\n", body->SemiMajorAxis * distCoeff);
+	printf("APOAPSIS : %.4Lf m\n", body->Apo * distCoeff);
+	printf("PERIAPSIS : %.4Lf m\n", body->Peri * distCoeff);
 }

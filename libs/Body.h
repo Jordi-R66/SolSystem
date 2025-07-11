@@ -60,6 +60,8 @@ typedef struct BodyStruct {
 	long double MeanAnomaly;
 	long double MeanMotion;
 
+	long double Peri, Apo;
+
 	long double x, y, z;
 	long double v_x, v_y, v_z;
 
@@ -72,4 +74,4 @@ typedef struct BodyStruct {
 Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf);
 Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysConf* sysConf);
 
-void print_body(Body* body);
+void print_body(Body* body, bool simplifyRadii);
