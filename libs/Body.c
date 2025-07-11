@@ -65,6 +65,7 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 void print_body(Body* body, bool simplifyRadii) {
 
 	long double distCoeff = simplifyRadii ? 1.0l / body->sysConf->DistScale : 1.0l;
+	char unitChar = simplifyRadii ? 'U' : 'm';
 
 	printf("Body name : %s\n", body->BodyName);
 
@@ -82,7 +83,7 @@ void print_body(Body* body, bool simplifyRadii) {
 	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
 	printf("ORBITAL PERIOD : %.4Lf seconds\n", 2.0l * M_PIl / body->MeanMotion);
 
-	printf("SEMI MAJOR AXIS : %.4Lf m\n", body->SemiMajorAxis * distCoeff);
-	printf("APOAPSIS : %.4Lf m\n", body->Apo * distCoeff);
-	printf("PERIAPSIS : %.4Lf m\n", body->Peri * distCoeff);
+	printf("SEMI MAJOR AXIS : %.4Lf %c\n", body->SemiMajorAxis * distCoeff, unitChar);
+	printf("APOAPSIS : %.4Lf %c\n", body->Apo * distCoeff, unitChar);
+	printf("PERIAPSIS : %.4Lf %c\n", body->Peri * distCoeff, unitChar);
 }
