@@ -49,6 +49,7 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 
 	for (size_t i = 0; i < numberOfBody; i++) {
 		bodyPtr = &bodyArray[i];
+
 		if (bodyPtr->hasParent) {
 			bodyPtr->ParentPTR = &bodyArray[bodyPtr->ParentId];
 
@@ -57,6 +58,8 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 			bodyPtr->Apo = bodyPtr->SemiMajorAxis * (1.0l + bodyPtr->Eccentricity);
 			bodyPtr->Peri = bodyPtr->SemiMajorAxis * (1.0l - bodyPtr->Eccentricity);
 		}
+
+		bodyPtr->sphereOfInfluence = SphereOfInfluence(bodyPtr, 0.0l);
 	}
 
 	return bodyArray;
@@ -89,4 +92,6 @@ void print_body(Body* body, bool simplifyUnits) {
 	printf("SEMI MAJOR AXIS : %.4Lf %c\n", body->SemiMajorAxis * distCoeff, distUnitChar);
 	printf("APOAPSIS : %.4Lf %c\n", body->Apo * distCoeff, distUnitChar);
 	printf("PERIAPSIS : %.4Lf %c\n", body->Peri * distCoeff, distUnitChar);
+
+	printf("SOI : %.4Lf m\n", body->sphereOfInfluence * distCoeff);
 }
