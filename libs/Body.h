@@ -41,7 +41,7 @@ typedef struct BodyStruct {
 
 	bool hasParent;
 	bodyId_t ParentId;
-	void* ParentPTR;
+	struct BodyStruct* ParentPTR;
 
 	string BodyName[NAME_LENGTH];
 
@@ -60,6 +60,7 @@ typedef struct BodyStruct {
 	long double MeanMotion;
 
 	long double Peri, Apo;
+	long double sphereOfInfluence;
 
 	long double x, y, z;
 	long double v_x, v_y, v_z;
