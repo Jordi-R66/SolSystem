@@ -19,7 +19,9 @@
 #define NAME_LENGTH 26
 
 typedef char string;
-typedef uint8_t bodyId_t;
+typedef uint16_t bodyId_t;
+
+#define ID_BITS 16
 
 #pragma pack(1)
 

@@ -5,7 +5,6 @@
 #pragma pack(1)
 
 #define BODY_ID_LENGTH 5
-#define ID_BITS 8
 
 #define BODY_MASS_LENGTH 16
 
