@@ -7,7 +7,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
-#include <sys/types.h>
 
 #define G 6.67428E-11L
 
