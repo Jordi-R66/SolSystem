@@ -35,6 +35,15 @@ int main(int argc, char* argv[]) {
 	SysConf conf = solConf;
 	BodyFile bodyFile;
 
+	ProgParams progParams;
+
+	memset(&progParams, 0, sizeof(ProgParams));
+
+	char* endptr;
+
+	bodyId_t lookingFor = -1;
+	bool runProgram = false;
+
 	printf("%d arguments detected\n", argc);
 
 	switch (argc) {
