@@ -3,8 +3,6 @@
 #include "Common.h"
 #include "Body.h"
 
-//#define EARTH_DAY_LENGTH 86400.0//86164.096
-
 long double OrbitalPeriod(Body* body);
 
 long double Apoapsis(Body* body);
