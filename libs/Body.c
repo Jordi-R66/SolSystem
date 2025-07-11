@@ -71,7 +71,7 @@ void print_body(Body* body, bool simplifyUnits) {
 	long double timeCoeff = simplifyUnits ? 1.0l / 86400.0l : 1.0l;
 
 	char timeUnitChar = simplifyUnits ? 'd' : 's';
-	char distUnitChar = simplifyUnits ? 'U' : 'm';
+	char distUnitChar = simplifyUnits ? 'A' : 'm';
 
 	long double SOI_RANGE = (body->sphereOfInfluence - SphereOfInfluence(body, body->Peri)) * distCoeff;
 	long double SMA_RANGE = (body->SemiMajorAxis * body->Eccentricity) * distCoeff;
