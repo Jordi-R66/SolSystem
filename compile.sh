@@ -11,8 +11,8 @@ mkdir -p asm
 
 EXEC="SolSystem"
 
-#ARGS="-Wall -O3 -s -std=gnu23 -masm=intel -m64 -march=x86-64 -flto"
-ARGS="-Wall -O0 -g -std=gnu23 -masm=intel -m64 -march=x86-64"
+ARGS="-Wall -std=gnu23 -masm=intel -m64 -Oz -flto -ffunction-sections -fdata-sections -Wl,--gc-sections -s -fomit-frame-pointer -march=x86-64-v3 -mtune=generic -fmerge-all-constants -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -fno-stack-protector -fno-plt -Wl,--strip-all"
+#ARGS="-Wall -O0 -g -std=gnu23 -masm=intel -m64 -march=x86-64"
 
 $COMPILER $ARGS $SOURCES -o $OUTPUT_DIR/$EXEC.out -lm
 
