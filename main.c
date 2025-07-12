@@ -17,6 +17,8 @@ typedef struct ProgParams {
 } ProgParams;
 #pragma pack()
 
+ProgParams params;
+
 SysConf solConf = {
 	.SysName = "Sol",
 	.DistScale = 149597870700.0L,
@@ -37,31 +39,30 @@ SimplifiedBody solBodies[] = {
 	{10, "Pluto", true, 0, 0.01303e24, 39.48168677, 0.24880766, 17.14175, 110.30347, 224.06676, 238.92881},
 };
 
-void program(ProgParams params);
+void program(void);
 
-ProgParams prepareProgParams(bool loadFromMem, bodyId_t bodyId, char* confFilename, char* bodiesFilename) {
-	ProgParams output;
+void prepareProgParams(bool loadFromMem, bodyId_t bodyId, char* confFilename, char* bodiesFilename) {
+	ProgParams* output = &params;
 
-	output.bodyId = bodyId;
+	output->bodyId = bodyId;
 
 	if (loadFromMem) {
-		output.bodyFile.numberOfBodies = sizeof(solBodies)/sizeof(SimplifiedBody);
-		output.bodyFile.bodies = complexifyBodies(solBodies, output.bodyFile.numberOfBodies, &output.conf);
-
-		output.conf = solConf;
+		output->conf = solConf;
+		output->bodyFile.numberOfBodies = sizeof(solBodies)/sizeof(SimplifiedBody);
+		output->bodyFile.bodies = complexifyBodies(solBodies, output->bodyFile.numberOfBodies, &output->conf);
 	} else {
 		if (confFilename == (char*)NULL || bodiesFilename == (char*)NULL) {
 			fprintf(stderr, "Make sure to provide both filenames\n");
 			exit(EXIT_FAILURE);
 		}
 
-		output.conf = parseConfFile(confFilename);
-		output.bodyFile = parseBodiesFile(bodiesFilename, &output.conf);
+		output->conf = parseConfFile(confFilename);
+		output->bodyFile = parseBodiesFile(bodiesFilename, &output->conf);
 
 		bool inexistantId = true;
 
-		for (bodyId_t i = 0; i < output.bodyFile.numberOfBodies; i++) {
-			Body body = output.bodyFile.bodies[i];
+		for (bodyId_t i = 0; i < output->bodyFile.numberOfBodies; i++) {
+			Body body = output->bodyFile.bodies[i];
 
 			if (i == body.BodyId) {
 				inexistantId = false;
@@ -69,26 +70,22 @@ ProgParams prepareProgParams(bool loadFromMem, bodyId_t bodyId, char* confFilena
 		}
 
 		if (inexistantId) {
-			memset(output.bodyFile.bodies, 0, output.bodyFile.numberOfBodies * BODY_SIZE);
-			free(output.bodyFile.bodies);
+			memset(output->bodyFile.bodies, 0, output->bodyFile.numberOfBodies * BODY_SIZE);
+			free(output->bodyFile.bodies);
 
-			output.bodyFile.bodies = (Body*)NULL;
-			output.bodyFile.numberOfBodies = 0;
+			output->bodyFile.bodies = (Body*)NULL;
+			output->bodyFile.numberOfBodies = 0;
 
 			fprintf(stderr, "Unrecognised bodyId\n");
 			exit(EXIT_FAILURE);
 		}
 	}
-
-	return output;
 }
 
 int main(int argc, char* argv[]) {
 	SysConf conf = solConf;
 
-	ProgParams progParams;
-
-	memset(&progParams, 0, sizeof(ProgParams));
+	memset(&params, 0, sizeof(ProgParams));
 
 	char* endptr;
 
@@ -121,7 +118,7 @@ int main(int argc, char* argv[]) {
 			} else {
 				lookingFor = (bodyId_t)strtoul(argv[1], &endptr, 10);
 
-				progParams = prepareProgParams(true, lookingFor, NULL, NULL);
+				prepareProgParams(true, lookingFor, NULL, NULL);
 				runProgram = true;
 			}
 
@@ -129,7 +126,7 @@ int main(int argc, char* argv[]) {
 
 		case 4:
 			lookingFor = (bodyId_t)strtoul(argv[1], &endptr, 10);
-			progParams = prepareProgParams(false, lookingFor, argv[2], argv[3]);
+			prepareProgParams(false, lookingFor, argv[2], argv[3]);
 
 			runProgram = true;
 			break;
@@ -141,11 +138,11 @@ int main(int argc, char* argv[]) {
 	}
 
 	if (runProgram) {
-		program(progParams);
+		program();
 	}
 }
 
-void program(ProgParams params) {
+void program(void) {
 	time_t epoch = JulianDayToTimestamp(params.conf.Epoch_TT);
 
 	print_body(&params.bodyFile.bodies[params.bodyId], true);
