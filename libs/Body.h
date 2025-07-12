@@ -72,6 +72,8 @@ typedef struct {
 	Body* ptr;
 } kvp;
 
+#define KVP_SIZE sizeof(kvp)
+
 #pragma pack()
 
 #define BODY_SIZE sizeof(Body)

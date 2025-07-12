@@ -42,29 +42,54 @@ Body* complexifyBodies(SimplifiedBody* simpleBodies, size_t numberOfBody, SysCon
 		exit(EXIT_FAILURE);
 	}
 
+	void* tempKvp = calloc(numberOfBody, KVP_SIZE);
+
+	if (tempKvp == NULL) {
+		fprintf(stderr, "Couldn't attribute enough memory for the kvp of %zu bodies.\n", numberOfBody);
+		free(tempBodies);
+		exit(EXIT_FAILURE);
+	}
+
 	Body* bodyArray = (Body*)tempBodies;
+	kvp* bodiesKvp = (kvp*)tempKvp;
 	Body* bodyPtr;
+
+	tempBodies = NULL;
+	tempKvp = NULL;
 
 	for (size_t i = 0; i < numberOfBody; i++) {
 		SimplifiedBody* simpleBody = &simpleBodies[i];
 
 		bodyArray[i] = complexifyBody(*simpleBody, sysConf);
+		bodiesKvp[i] = (kvp){simpleBody->bodyId, &bodyArray[i]};
 	}
 
 	for (size_t i = 0; i < numberOfBody; i++) {
 		bodyPtr = &bodyArray[i];
 
 		if (bodyPtr->hasParent) {
-			bodyPtr->ParentPTR = &bodyArray[bodyPtr->ParentId];
+			for (size_t j = 0; j < numberOfBody; j++) {
+				kvp KVP = bodiesKvp[j];
 
-			bodyPtr->MeanMotion = AngularSpeed(bodyPtr);
+				if (KVP.id == bodyPtr->ParentId) {
+					bodyPtr->ParentPTR = KVP.ptr;
 
-			bodyPtr->Apo = bodyPtr->SemiMajorAxis * (1.0l + bodyPtr->Eccentricity);
-			bodyPtr->Peri = bodyPtr->SemiMajorAxis * (1.0l - bodyPtr->Eccentricity);
+					bodyPtr->MeanMotion = AngularSpeed(bodyPtr);
+
+					bodyPtr->Apo = bodyPtr->SemiMajorAxis * (1.0l + bodyPtr->Eccentricity);
+					bodyPtr->Peri = bodyPtr->SemiMajorAxis * (1.0l - bodyPtr->Eccentricity);
+					break;
+				}
+			}
 		}
 
 		bodyPtr->sphereOfInfluence = SphereOfInfluence(bodyPtr, 0.0l);
 	}
+
+	memset((void*)bodiesKvp, 0, numberOfBody * KVP_SIZE);
+	free((void*)bodiesKvp);
+
+	bodiesKvp = (kvp*)NULL;
 
 	return bodyArray;
 }
