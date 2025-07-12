@@ -85,7 +85,6 @@ ProgParams prepareProgParams(bool loadFromMem, bodyId_t bodyId, char* confFilena
 
 int main(int argc, char* argv[]) {
 	SysConf conf = solConf;
-	BodyFile bodyFile;
 
 	ProgParams progParams;
 
@@ -99,48 +98,51 @@ int main(int argc, char* argv[]) {
 	printf("%d arguments detected\n", argc);
 
 	switch (argc) {
-		case 1:
-			bodyFile.numberOfBodies = sizeof(solBodies)/sizeof(SimplifiedBody);
-			bodyFile.bodies = complexifyBodies(solBodies, bodyFile.numberOfBodies, &conf);
-
-			program(conf, bodyFile);
 		case 2:
-			switch (argv[1][0]) {
-				case 'g':
-					FILE* fp = fopen("Sol.conf", "w");
+			if (argv[1][0] == '-') {
+				switch (argv[1][1]) {
+					case 'g':
+						FILE* fp = fopen("Sol.conf", "w");
 
-					fwrite((void*)&conf, sizeof(SysConf), 1, fp);
-					fclose(fp);
+						fwrite((void*)&conf, sizeof(SysConf), 1, fp);
+						fclose(fp);
 
-					ExportSimplifiedBodies(solBodies, sizeof(solBodies)/sizeof(SimplifiedBody), &conf);
+						ExportSimplifiedBodies(solBodies, sizeof(solBodies)/sizeof(SimplifiedBody), &conf);
 
-					fprintf(stdout, "Generated all required files.\n");
-					exit(EXIT_SUCCESS);
-					break;
+						fprintf(stdout, "Generated all required files.\n");
+						exit(EXIT_SUCCESS);
+						break;
 
-				default:
-					fprintf(stderr, "Unknown parameter %s\n", argv[1]);
-					exit(EXIT_FAILURE);
-					break;
+					default:
+						fprintf(stderr, "Unknown parameter %s\n", argv[1]);
+						exit(EXIT_FAILURE);
+						break;
+				}
+			} else {
+				lookingFor = (bodyId_t)strtoul(argv[1], &endptr, 10);
+
+				progParams = prepareProgParams(true, lookingFor, NULL, NULL);
+				runProgram = true;
 			}
 
-		case 3:
+			break;
 
-			printf("Conf file : %s\nBodies file : %s\n", argv[1], argv[2]);
+		case 4:
+			lookingFor = (bodyId_t)strtoul(argv[1], &endptr, 10);
+			progParams = prepareProgParams(false, lookingFor, argv[2], argv[3]);
 
-			conf = parseConfFile(argv[1]);
-			bodyFile = parseBodiesFile(argv[2], &conf);
-
-			printf("Everything has been loaded into memory!!\n");
-
-			program(conf, bodyFile);
+			runProgram = true;
+			break;
 
 		default:
 			fprintf(stderr, "Please specify a .bodies file followed by a .conf file. OR specify 'g' to generate default .conf and a template for your .bodies\n");
 			exit(EXIT_FAILURE);
 			break;
+	}
 
-		}
+	if (runProgram) {
+		program(progParams);
+	}
 }
 
 void program(ProgParams params) {
