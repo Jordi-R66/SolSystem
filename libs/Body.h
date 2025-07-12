@@ -27,10 +27,10 @@ typedef struct SimplifiedBody {
 	long double Mass;
 	long double SMA;
 	long double Eccentricity;
-	long double Inclination;
-	long double AscNode;
-	long double PeLNG;
-	long double MeanLNG;
+	double Inclination;
+	double AscNode;
+	double PeLNG;
+	double MeanLNG;
 } SimplifiedBody;
 
 #define SIMPLIFIED_BODY_SIZE sizeof(SimplifiedBody)
@@ -50,13 +50,13 @@ typedef struct BodyStruct {
 
 	long double SemiMajorAxis;
 	long double Eccentricity;
-	long double Inclination;
-	long double AscNodeLong;
-	long double PeriLong;
-	long double MeanLong;
+	double Inclination;
+	double AscNodeLong;
+	double PeriLong;
+	double MeanLong;
 
-	long double PeriArg;
-	long double MeanAnomaly;
+	double PeriArg;
+	double MeanAnomaly;
 	long double MeanMotion;
 
 	long double Peri, Apo;

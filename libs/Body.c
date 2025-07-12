@@ -27,6 +27,10 @@ Body complexifyBody(SimplifiedBody simpleBody, SysConf* sysConf) {
 	final.PeriArg = final.PeriLong - final.AscNodeLong;
 	final.MeanAnomaly = final.MeanLong - final.PeriLong;
 
+	if (final.MeanAnomaly < 0.0l) {
+		final.MeanAnomaly += 360.0l;
+	}
+
 	return final;
 }
 
@@ -85,11 +89,11 @@ void print_body(Body* body, bool simplifyUnits) {
 
 	printf("\n");
 
-	printf("INCLINATION : %.4Lf degs\n", body->Inclination);
-	printf("LONGITUDE OF ASC. NODE : %.4Lf degs\n", body->AscNodeLong);
+	printf("INCLINATION : %.4f degs\n", body->Inclination);
+	printf("LONGITUDE OF ASC. NODE : %.4f degs\n", body->AscNodeLong);
 	printf("ECCENTRICITY : %.7Lf\n", body->Eccentricity);
-	printf("ARG. OF PERIAPSIS : %.4Lf degs\n", body->PeriArg);
-	printf("MEAN ANOMALY : %.4Lf degs\n", body->MeanAnomaly);
+	printf("ARG. OF PERIAPSIS : %.4f degs\n", body->PeriArg);
+	printf("MEAN ANOMALY : %.4f degs\n", body->MeanAnomaly);
 	printf("ORBITAL PERIOD : %.4Lf %c\n", 2.0l * M_PIl / body->MeanMotion * timeCoeff, timeUnitChar);
 
 	printf("DIST : %.4Lf +/- %.4Lf %c\n", body->SemiMajorAxis * distCoeff, SMA_RANGE, distUnitChar);
