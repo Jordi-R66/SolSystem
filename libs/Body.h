@@ -67,6 +67,11 @@ typedef struct BodyStruct {
 
 } Body;
 
+typedef struct {
+	bodyId_t id;
+	Body* ptr;
+} kvp;
+
 #pragma pack()
 
 #define BODY_SIZE sizeof(Body)
