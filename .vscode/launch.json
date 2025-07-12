@@ -10,8 +10,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/output/SolSystem.out",
 			"args": [
-				"${workspaceFolder}/Sol.conf",
-				"${workspaceFolder}/Sol.bodies"
+				"3"
 			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
