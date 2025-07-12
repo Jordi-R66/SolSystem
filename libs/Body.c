@@ -80,8 +80,8 @@ void print_body(Body* body, bool simplifyUnits) {
 
 	printf("---------------------------------- DATA ----------------------------------\n");
 
-	printf("BODY ID : %U\n", body->BodyId);
-	printf("PARENT ID : %U\n", body->ParentId);
+	printf("BODY ID : %u\n", body->BodyId);
+	printf("PARENT ID : %u\n", body->ParentId);
 
 	printf("\n");
 
