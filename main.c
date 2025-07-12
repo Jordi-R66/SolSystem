@@ -37,6 +37,8 @@ SimplifiedBody solBodies[] = {
 	{10, "Pluto", true, 0, 0.01303e24, 39.48168677, 0.24880766, 17.14175, 110.30347, 224.06676, 238.92881},
 };
 
+void program(ProgParams params);
+
 ProgParams prepareProgParams(bool loadFromMem, bodyId_t bodyId, char* confFilename, char* bodiesFilename) {
 	ProgParams output;
 
@@ -141,15 +143,13 @@ int main(int argc, char* argv[]) {
 		}
 }
 
-void program(SysConf conf, BodyFile bodyFile) {
-	time_t epoch = JulianDayToTimestamp(conf.Epoch_TT);
+void program(ProgParams params) {
+	time_t epoch = JulianDayToTimestamp(params.conf.Epoch_TT);
 
-	for (size_t i = 0; i < bodyFile.numberOfBodies; i++) {
-		print_body(&bodyFile.bodies[i], true);
-		printf("\n\n");
-	}
+	print_body(&params.bodyFile.bodies[params.bodyId], true);
+	printf("\n\n");
 
-	free(bodyFile.bodies);
+	free(params.bodyFile.bodies);
 
 	exit(EXIT_SUCCESS);
 }
