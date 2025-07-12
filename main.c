@@ -9,6 +9,14 @@
 
 time_t current_time;
 
+#pragma pack(1)
+typedef struct ProgParams {
+	SysConf conf;
+	BodyFile bodyFile;
+	bodyId_t bodyId;
+} ProgParams;
+#pragma pack()
+
 SysConf solConf = {
 	.SysName = "Sol",
 	.DistScale = 149597870700.0L,
